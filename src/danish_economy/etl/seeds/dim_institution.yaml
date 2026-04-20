@@ -1,0 +1,700 @@
+# dim_institution seed data
+#
+# Hand-curated for: STAT, ministerier, major styrelser.
+# Kommuner and regioner are auto-populated from DST FOLK1A register at load time.
+#
+# entity_key: stable business key (survives SCD2 versioning)
+# parent_entity_key: references another entity_key (null for root)
+# inst_type: stat | ministerium | styrelse | region | kommune
+# sector_esa2010: ESA 2010 sector code
+#   S1311 = central government, S1312 = state/regional government,
+#   S1313 = local government, S1314 = social security funds
+# geo_level: national | region | kommune (null for non-geographic units)
+
+institutions:
+  # ── Root ──────────────────────────────────────────────────────────
+  - entity_key: STAT
+    name_da: Den danske stat
+    name_en: The Danish State
+    inst_type: stat
+    inst_subtype: null
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: null
+    geo_code: null
+    geo_level: national
+
+  # ── Ministerier ───────────────────────────────────────────────────
+  - entity_key: MIN_STATSMIN
+    name_da: Statsministeriet
+    name_en: Prime Minister's Office
+    inst_type: ministerium
+    inst_subtype: null
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: STAT
+    geo_code: null
+    geo_level: null
+
+  - entity_key: MIN_FINANS
+    name_da: Finansministeriet
+    name_en: Ministry of Finance
+    inst_type: ministerium
+    inst_subtype: null
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: STAT
+    geo_code: null
+    geo_level: null
+
+  - entity_key: MIN_UDENRIGS
+    name_da: Udenrigsministeriet
+    name_en: Ministry of Foreign Affairs
+    inst_type: ministerium
+    inst_subtype: null
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: STAT
+    geo_code: null
+    geo_level: null
+
+  - entity_key: MIN_FORSVAR
+    name_da: Forsvarsministeriet
+    name_en: Ministry of Defence
+    inst_type: ministerium
+    inst_subtype: null
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: STAT
+    geo_code: null
+    geo_level: null
+
+  - entity_key: MIN_JUSTITS
+    name_da: Justitsministeriet
+    name_en: Ministry of Justice
+    inst_type: ministerium
+    inst_subtype: null
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: STAT
+    geo_code: null
+    geo_level: null
+
+  - entity_key: MIN_SOCIAL
+    name_da: Social- og Boligministeriet
+    name_en: Ministry of Social Affairs and Housing
+    inst_type: ministerium
+    inst_subtype: null
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: STAT
+    geo_code: null
+    geo_level: null
+
+  - entity_key: MIN_SUNDHED
+    name_da: Indenrigs- og Sundhedsministeriet
+    name_en: Ministry of the Interior and Health
+    inst_type: ministerium
+    inst_subtype: null
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: STAT
+    geo_code: null
+    geo_level: null
+
+  - entity_key: MIN_BESKAEF
+    name_da: Beskæftigelsesministeriet
+    name_en: Ministry of Employment
+    inst_type: ministerium
+    inst_subtype: null
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: STAT
+    geo_code: null
+    geo_level: null
+
+  - entity_key: MIN_UDDANNELSE
+    name_da: Uddannelses- og Forskningsministeriet
+    name_en: Ministry of Higher Education and Science
+    inst_type: ministerium
+    inst_subtype: null
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: STAT
+    geo_code: null
+    geo_level: null
+
+  - entity_key: MIN_BOERN
+    name_da: Børne- og Undervisningsministeriet
+    name_en: Ministry of Children and Education
+    inst_type: ministerium
+    inst_subtype: null
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: STAT
+    geo_code: null
+    geo_level: null
+
+  - entity_key: MIN_KLIMA
+    name_da: Klima-, Energi- og Forsyningsministeriet
+    name_en: Ministry of Climate, Energy and Utilities
+    inst_type: ministerium
+    inst_subtype: null
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: STAT
+    geo_code: null
+    geo_level: null
+
+  - entity_key: MIN_MILJOE
+    name_da: Miljøministeriet
+    name_en: Ministry of the Environment
+    inst_type: ministerium
+    inst_subtype: null
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: STAT
+    geo_code: null
+    geo_level: null
+
+  - entity_key: MIN_ERHVERV
+    name_da: Erhvervsministeriet
+    name_en: Ministry of Industry, Business and Financial Affairs
+    inst_type: ministerium
+    inst_subtype: null
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: STAT
+    geo_code: null
+    geo_level: null
+
+  - entity_key: MIN_TRANSPORT
+    name_da: Transportministeriet
+    name_en: Ministry of Transport
+    inst_type: ministerium
+    inst_subtype: null
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: STAT
+    geo_code: null
+    geo_level: null
+
+  - entity_key: MIN_SKATTER
+    name_da: Skatteministeriet
+    name_en: Ministry of Taxation
+    inst_type: ministerium
+    inst_subtype: null
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: STAT
+    geo_code: null
+    geo_level: null
+
+  - entity_key: MIN_KIRKE
+    name_da: Kirkeministeriet
+    name_en: Ministry of Ecclesiastical Affairs
+    inst_type: ministerium
+    inst_subtype: null
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: STAT
+    geo_code: null
+    geo_level: null
+
+  - entity_key: MIN_KULTUR
+    name_da: Kulturministeriet
+    name_en: Ministry of Culture
+    inst_type: ministerium
+    inst_subtype: null
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: STAT
+    geo_code: null
+    geo_level: null
+
+  - entity_key: MIN_DIGITALISERING
+    name_da: Ministeriet for Digitalisering og Ligestilling
+    name_en: Ministry of Digitalization and Gender Equality
+    inst_type: ministerium
+    inst_subtype: null
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: STAT
+    geo_code: null
+    geo_level: null
+
+  - entity_key: MIN_UDVIKLING
+    name_da: Ministeriet for Udviklingssamarbejde og Global Klimapolitik
+    name_en: Ministry of Development Cooperation and Global Climate Policy
+    inst_type: ministerium
+    inst_subtype: null
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: STAT
+    geo_code: null
+    geo_level: null
+
+  # ── Styrelser ─────────────────────────────────────────────────────
+
+  # Under Finansministeriet
+  - entity_key: STY_MODERNISERING
+    name_da: Medarbejder- og Kompetencestyrelsen
+    name_en: Agency for Modernisation
+    inst_type: styrelse
+    inst_subtype: styrelse
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: MIN_FINANS
+    geo_code: null
+    geo_level: null
+
+  - entity_key: STY_OEKONOMISTYRELSEN
+    name_da: Økonomistyrelsen
+    name_en: Agency for Public Finance and Management
+    inst_type: styrelse
+    inst_subtype: styrelse
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: MIN_FINANS
+    geo_code: null
+    geo_level: null
+
+  # Under Justitsministeriet
+  - entity_key: STY_POLITI
+    name_da: Rigspolitiet
+    name_en: National Police
+    inst_type: styrelse
+    inst_subtype: styrelse
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: MIN_JUSTITS
+    geo_code: null
+    geo_level: null
+
+  - entity_key: STY_KRIMINALFORSORG
+    name_da: Kriminalforsorgen
+    name_en: Danish Prison and Probation Service
+    inst_type: styrelse
+    inst_subtype: styrelse
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: MIN_JUSTITS
+    geo_code: null
+    geo_level: null
+
+  - entity_key: STY_DOMSTOL
+    name_da: Domstolsstyrelsen
+    name_en: Danish Court Administration
+    inst_type: styrelse
+    inst_subtype: styrelse
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: MIN_JUSTITS
+    geo_code: null
+    geo_level: null
+
+  # Under Forsvarsministeriet
+  - entity_key: STY_FORSVARET
+    name_da: Forsvaret
+    name_en: Danish Defence
+    inst_type: styrelse
+    inst_subtype: styrelse
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: MIN_FORSVAR
+    geo_code: null
+    geo_level: null
+
+  - entity_key: STY_BEREDSKAB
+    name_da: Beredskabsstyrelsen
+    name_en: Danish Emergency Management Agency
+    inst_type: styrelse
+    inst_subtype: styrelse
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: MIN_FORSVAR
+    geo_code: null
+    geo_level: null
+
+  # Under Skatteministeriet
+  - entity_key: STY_SKAT
+    name_da: Skatteforvaltningen
+    name_en: Danish Tax Agency
+    inst_type: styrelse
+    inst_subtype: styrelse
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: MIN_SKATTER
+    geo_code: null
+    geo_level: null
+
+  - entity_key: STY_TOLD
+    name_da: Toldstyrelsen
+    name_en: Danish Customs Agency
+    inst_type: styrelse
+    inst_subtype: styrelse
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: MIN_SKATTER
+    geo_code: null
+    geo_level: null
+
+  # Under Beskæftigelsesministeriet
+  - entity_key: STY_ARBEJDSTILSYNET
+    name_da: Arbejdstilsynet
+    name_en: Danish Working Environment Authority
+    inst_type: styrelse
+    inst_subtype: styrelse
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: MIN_BESKAEF
+    geo_code: null
+    geo_level: null
+
+  - entity_key: STY_STYRELSEN_FOR_ARBEJDSMARKED
+    name_da: Styrelsen for Arbejdsmarked og Rekruttering
+    name_en: Danish Agency for Labour Market and Recruitment
+    inst_type: styrelse
+    inst_subtype: styrelse
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: MIN_BESKAEF
+    geo_code: null
+    geo_level: null
+
+  # Under Indenrigs- og Sundhedsministeriet
+  - entity_key: STY_SUNDHEDSSTYRELSEN
+    name_da: Sundhedsstyrelsen
+    name_en: Danish Health Authority
+    inst_type: styrelse
+    inst_subtype: styrelse
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: MIN_SUNDHED
+    geo_code: null
+    geo_level: null
+
+  - entity_key: STY_LAEGEMIDDELSTYRELSEN
+    name_da: Lægemiddelstyrelsen
+    name_en: Danish Medicines Agency
+    inst_type: styrelse
+    inst_subtype: styrelse
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: MIN_SUNDHED
+    geo_code: null
+    geo_level: null
+
+  - entity_key: STY_SSI
+    name_da: Statens Serum Institut
+    name_en: Statens Serum Institut
+    inst_type: styrelse
+    inst_subtype: institut
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: MIN_SUNDHED
+    geo_code: null
+    geo_level: null
+
+  # Under Klima-, Energi- og Forsyningsministeriet
+  - entity_key: STY_ENERGISTYRELSEN
+    name_da: Energistyrelsen
+    name_en: Danish Energy Agency
+    inst_type: styrelse
+    inst_subtype: styrelse
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: MIN_KLIMA
+    geo_code: null
+    geo_level: null
+
+  - entity_key: STY_FORSYNINGSTILSYNET
+    name_da: Forsyningstilsynet
+    name_en: Danish Utility Regulator
+    inst_type: styrelse
+    inst_subtype: tilsyn
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: MIN_KLIMA
+    geo_code: null
+    geo_level: null
+
+  # Under Miljøministeriet
+  - entity_key: STY_MILJOE
+    name_da: Miljøstyrelsen
+    name_en: Danish Environmental Protection Agency
+    inst_type: styrelse
+    inst_subtype: styrelse
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: MIN_MILJOE
+    geo_code: null
+    geo_level: null
+
+  - entity_key: STY_NATURSTYRELSEN
+    name_da: Naturstyrelsen
+    name_en: Danish Nature Agency
+    inst_type: styrelse
+    inst_subtype: styrelse
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: MIN_MILJOE
+    geo_code: null
+    geo_level: null
+
+  # Under Erhvervsministeriet
+  - entity_key: STY_ERHVERVSSTYRELSEN
+    name_da: Erhvervsstyrelsen
+    name_en: Danish Business Authority
+    inst_type: styrelse
+    inst_subtype: styrelse
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: MIN_ERHVERV
+    geo_code: null
+    geo_level: null
+
+  - entity_key: STY_SOEFART
+    name_da: Søfartsstyrelsen
+    name_en: Danish Maritime Authority
+    inst_type: styrelse
+    inst_subtype: styrelse
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: MIN_ERHVERV
+    geo_code: null
+    geo_level: null
+
+  - entity_key: STY_PATENT
+    name_da: Patent- og Varemærkestyrelsen
+    name_en: Danish Patent and Trademark Office
+    inst_type: styrelse
+    inst_subtype: styrelse
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: MIN_ERHVERV
+    geo_code: null
+    geo_level: null
+
+  - entity_key: STY_FINANSTILSYNET
+    name_da: Finanstilsynet
+    name_en: Danish Financial Supervisory Authority
+    inst_type: styrelse
+    inst_subtype: tilsyn
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: MIN_ERHVERV
+    geo_code: null
+    geo_level: null
+
+  - entity_key: STY_KONKURRENCE
+    name_da: Konkurrence- og Forbrugerstyrelsen
+    name_en: Danish Competition and Consumer Authority
+    inst_type: styrelse
+    inst_subtype: styrelse
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: MIN_ERHVERV
+    geo_code: null
+    geo_level: null
+
+  # Under Transportministeriet
+  - entity_key: STY_VEJDIREKTORATET
+    name_da: Vejdirektoratet
+    name_en: Danish Road Directorate
+    inst_type: styrelse
+    inst_subtype: direktorat
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: MIN_TRANSPORT
+    geo_code: null
+    geo_level: null
+
+  - entity_key: STY_BANEDANMARK
+    name_da: Banedanmark
+    name_en: Rail Net Denmark
+    inst_type: styrelse
+    inst_subtype: styrelse
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: MIN_TRANSPORT
+    geo_code: null
+    geo_level: null
+
+  - entity_key: STY_TRAFIKSTYRELSEN
+    name_da: Trafikstyrelsen
+    name_en: Danish Transport Authority
+    inst_type: styrelse
+    inst_subtype: styrelse
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: MIN_TRANSPORT
+    geo_code: null
+    geo_level: null
+
+  # Under Børne- og Undervisningsministeriet
+  - entity_key: STY_UNDERVISNING
+    name_da: Styrelsen for Undervisning og Kvalitet
+    name_en: Agency for Education and Quality
+    inst_type: styrelse
+    inst_subtype: styrelse
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: MIN_BOERN
+    geo_code: null
+    geo_level: null
+
+  # Under Uddannelses- og Forskningsministeriet
+  - entity_key: STY_UDDANNELSE
+    name_da: Uddannelses- og Forskningsstyrelsen
+    name_en: Danish Agency for Higher Education and Science
+    inst_type: styrelse
+    inst_subtype: styrelse
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: MIN_UDDANNELSE
+    geo_code: null
+    geo_level: null
+
+  # Under Social- og Boligministeriet
+  - entity_key: STY_SOCIALSTYRELSEN
+    name_da: Socialstyrelsen
+    name_en: Danish National Board of Social Services
+    inst_type: styrelse
+    inst_subtype: styrelse
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: MIN_SOCIAL
+    geo_code: null
+    geo_level: null
+
+  - entity_key: STY_BOLIGSTYRELSEN
+    name_da: Bolig- og Planstyrelsen
+    name_en: Danish Housing and Planning Authority
+    inst_type: styrelse
+    inst_subtype: styrelse
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: MIN_SOCIAL
+    geo_code: null
+    geo_level: null
+
+  # Under Kulturministeriet
+  - entity_key: STY_KULTURSTYRELSEN
+    name_da: Slots- og Kulturstyrelsen
+    name_en: Agency for Culture and Palaces
+    inst_type: styrelse
+    inst_subtype: styrelse
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: MIN_KULTUR
+    geo_code: null
+    geo_level: null
+
+  - entity_key: STY_DFI
+    name_da: Det Danske Filminstitut
+    name_en: Danish Film Institute
+    inst_type: styrelse
+    inst_subtype: institut
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: MIN_KULTUR
+    geo_code: null
+    geo_level: null
+
+  # Under Udenrigsministeriet
+  - entity_key: STY_EKSPORTKREDIT
+    name_da: Danmarks Eksport- og Investeringsfond
+    name_en: Denmark's Export and Investment Fund
+    inst_type: styrelse
+    inst_subtype: fond
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: MIN_UDENRIGS
+    geo_code: null
+    geo_level: null
+
+  # Under Ministeriet for Digitalisering og Ligestilling
+  - entity_key: STY_DIGITALISERINGSSTYRELSEN
+    name_da: Digitaliseringsstyrelsen
+    name_en: Agency for Digital Government
+    inst_type: styrelse
+    inst_subtype: styrelse
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: MIN_DIGITALISERING
+    geo_code: null
+    geo_level: null
+
+  # ── Regioner ──────────────────────────────────────────────────────
+  # (Also auto-populated from DST at load time, but included here for
+  #  English names and parent linkage)
+  - entity_key: REG_HOVEDSTADEN
+    name_da: Region Hovedstaden
+    name_en: Capital Region of Denmark
+    inst_type: region
+    inst_subtype: null
+    sector_esa2010: S1312
+    is_general_government: true
+    parent_entity_key: STAT
+    geo_code: "1084"
+    geo_level: region
+
+  - entity_key: REG_SJAELLAND
+    name_da: Region Sjælland
+    name_en: Region Zealand
+    inst_type: region
+    inst_subtype: null
+    sector_esa2010: S1312
+    is_general_government: true
+    parent_entity_key: STAT
+    geo_code: "1085"
+    geo_level: region
+
+  - entity_key: REG_SYDDANMARK
+    name_da: Region Syddanmark
+    name_en: Region of Southern Denmark
+    inst_type: region
+    inst_subtype: null
+    sector_esa2010: S1312
+    is_general_government: true
+    parent_entity_key: STAT
+    geo_code: "1083"
+    geo_level: region
+
+  - entity_key: REG_MIDTJYLLAND
+    name_da: Region Midtjylland
+    name_en: Central Denmark Region
+    inst_type: region
+    inst_subtype: null
+    sector_esa2010: S1312
+    is_general_government: true
+    parent_entity_key: STAT
+    geo_code: "1082"
+    geo_level: region
+
+  - entity_key: REG_NORDJYLLAND
+    name_da: Region Nordjylland
+    name_en: North Denmark Region
+    inst_type: region
+    inst_subtype: null
+    sector_esa2010: S1312
+    is_general_government: true
+    parent_entity_key: STAT
+    geo_code: "1081"
+    geo_level: region
+
+# Kommuner are NOT listed here — they are loaded from the DST FOLK1A register
+# at build time. See dim_institution.py for the kommune-loading logic.
+# The register maps each kommune code to its parent region.
+
+# Region-to-kommune mapping (used by the loader):
+# Region Hovedstaden (084): 101,147,155,185,165,151,153,157,159,161,163,167,
+#   169,183,173,175,187,201,240,210,250,190,270,260,217,219,223,230,400,411
+# Region Sjælland (085): 253,259,350,265,269,320,376,316,326,360,370,306,
+#   329,330,340,336,390
+# Region Syddanmark (083): 420,430,440,482,410,480,450,461,479,492,530,561,
+#   563,607,510,621,540,550,573,575,630,580
+# Region Midtjylland (082): 710,766,615,707,727,730,741,740,746,706,751,657,
+#   661,756,665,760,779,671,791
+# Region Nordjylland (081): 810,813,860,849,825,846,773,840,787,820,851

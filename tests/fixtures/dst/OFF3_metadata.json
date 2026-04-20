@@ -1,0 +1,41 @@
+{
+  "id": "OFF3",
+  "text": "Den offentlige sektors udgifter og indtægter",
+  "description": "Offentlig forvaltning og service, udgifter og indtægter",
+  "unit": "Mio. kr.",
+  "updated": "2025-03-28T08:00:00",
+  "variables": [
+    {
+      "id": "UI",
+      "text": "udgifter og indtægter",
+      "elimination": false,
+      "values": [
+        {"id": "1", "text": "1. Udgifter i alt"},
+        {"id": "1.1", "text": "1.1 Aflønning af ansatte"},
+        {"id": "2.19", "text": "2.19 Offentlig saldo"}
+      ]
+    },
+    {
+      "id": "SEKTOR",
+      "text": "sektor",
+      "elimination": true,
+      "values": [
+        {"id": "TOTAL", "text": "Offentlig forvaltning og service i alt"},
+        {"id": "S", "text": "Staten"},
+        {"id": "K", "text": "Kommuner"}
+      ]
+    },
+    {
+      "id": "Tid",
+      "text": "tid",
+      "elimination": false,
+      "values": [
+        {"id": "2020", "text": "2020"},
+        {"id": "2021", "text": "2021"},
+        {"id": "2022", "text": "2022"},
+        {"id": "2023", "text": "2023"},
+        {"id": "2024", "text": "2024"}
+      ]
+    }
+  ]
+}

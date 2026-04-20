@@ -1,0 +1,114 @@
+# dim_metric seed data
+#
+# Each metric maps to a specific measure from an upstream source.
+# source_identifier provides lineage: which table + dimension value this came from.
+# The category text must match the silver OFF3 category column exactly.
+
+metrics:
+  - metric_code: public_total_expenditure
+    name_da: Drifts- og kapitaludgifter i alt
+    name_en: Total public expenditure
+    unit: DKK_mio
+    category: expenditure
+    subcategory: total
+    source_system: dst
+    source_identifier: "OFF3:UI=1.17. Drifts- og kapitaludgifter i alt (8+16)"
+
+  - metric_code: public_operating_expenditure
+    name_da: Driftsudgifter i alt
+    name_en: Total operating expenditure
+    unit: DKK_mio
+    category: expenditure
+    subcategory: operating
+    source_system: dst
+    source_identifier: "OFF3:UI=1.8. Driftsudgifter i alt (1+2+3+4+5+6+7)"
+
+  - metric_code: public_employee_compensation
+    name_da: Aflønning af ansatte
+    name_en: Employee compensation
+    unit: DKK_mio
+    category: expenditure
+    subcategory: compensation
+    source_system: dst
+    source_identifier: "OFF3:UI=1.1. Aflønning af ansatte"
+
+  - metric_code: public_consumption
+    name_da: Forbrug i produktionen
+    name_en: Intermediate consumption
+    unit: DKK_mio
+    category: expenditure
+    subcategory: consumption
+    source_system: dst
+    source_identifier: "OFF3:UI=1.2. Forbrug i produktionen"
+
+  - metric_code: public_social_benefits
+    name_da: Sociale ydelser i naturalier
+    name_en: Social benefits in kind
+    unit: DKK_mio
+    category: expenditure
+    subcategory: social
+    source_system: dst
+    source_identifier: "OFF3:UI=1.4. Sociale ydelser i naturalier"
+
+  - metric_code: public_subsidies
+    name_da: Subsidier
+    name_en: Subsidies
+    unit: DKK_mio
+    category: expenditure
+    subcategory: subsidies
+    source_system: dst
+    source_identifier: "OFF3:UI=1.6. Subsidier"
+
+  - metric_code: public_total_revenue
+    name_da: Drifts- og kapitalindtægter i alt
+    name_en: Total public revenue
+    unit: DKK_mio
+    category: revenue
+    subcategory: total
+    source_system: dst
+    source_identifier: "OFF3:UI=2.17. Drifts- og kapitalindtægter i alt (13+16)"
+
+  - metric_code: public_operating_revenue
+    name_da: Driftsindtægter i alt
+    name_en: Total operating revenue
+    unit: DKK_mio
+    category: revenue
+    subcategory: operating
+    source_system: dst
+    source_identifier: "OFF3:UI=2.13. Driftsindtægter i alt (1-12)"
+
+  - metric_code: public_tax_production
+    name_da: Produktions- og importskatter
+    name_en: Production and import taxes
+    unit: DKK_mio
+    category: revenue
+    subcategory: tax
+    source_system: dst
+    source_identifier: "OFF3:UI=2.7. Produktions- og importskatter"
+
+  - metric_code: public_tax_income
+    name_da: Løbende indkomst- og formueskatter
+    name_en: Income and wealth taxes
+    unit: DKK_mio
+    category: revenue
+    subcategory: tax
+    source_system: dst
+    source_identifier: "OFF3:UI=2.8. Løbende indkomst- og formueskatter"
+
+  - metric_code: public_balance
+    name_da: Offentlig saldo
+    name_en: Public sector balance
+    unit: DKK_mio
+    category: balance
+    subcategory: net
+    source_system: dst
+    source_identifier: "OFF3:UI=2.19. Offentlig saldo=fordringserhvervelse, netto (2.17-1.17)"
+
+  - metric_code: public_interest
+    name_da: Renter mv.
+    name_en: Interest payments
+    unit: DKK_mio
+    category: expenditure
+    subcategory: interest
+    source_system: dst
+    source_identifier: "OFF3:UI=1.5. Renter mv."
