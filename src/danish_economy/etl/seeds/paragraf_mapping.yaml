@@ -1,0 +1,51 @@
+# Mapping from Finanslov paragraf number to dim_institution entity_key.
+#
+# Ministerier change between governments. This mapping reflects the
+# current government (as of 2024). Paragraffer that are not ministerier
+# (Kongen, Folketinget, reserves, debt, taxes) use FL_PAR_xx entity keys.
+#
+# When a new government reorganises ministries, update both this file and
+# dim_institution.yaml, then rebuild.
+
+paragraffer:
+  # Monarchy & Parliament
+  "01": {entity_key: FL_PAR_01, name_da: "Dronningen (Kongehuset)", name_en: "The Monarch", inst_type: "paragraf"}
+  "02": {entity_key: FL_PAR_02, name_da: "Medlemmer af det kongelige hus", name_en: "Royal House Members", inst_type: "paragraf"}
+  "03": {entity_key: FL_PAR_03, name_da: "Folketinget", name_en: "The Danish Parliament", inst_type: "paragraf"}
+
+  # Ministerier (mapped to existing dim_institution entities)
+  "05": {entity_key: MIN_STATSMIN}
+  "06": {entity_key: MIN_UDENRIGS}
+  "07": {entity_key: MIN_FINANS}
+  "08": {entity_key: MIN_ERHVERV}
+  "09": {entity_key: MIN_SKATTER}
+  "10": {entity_key: FL_PAR_10, name_da: "Økonomiministeriet", name_en: "Ministry of Economic Affairs", inst_type: "paragraf"}
+  "11": {entity_key: MIN_JUSTITS}
+  "12": {entity_key: MIN_FORSVAR}
+  "13": {entity_key: FL_PAR_13, name_da: "Ministeriet for Samfundssikkerhed og Beredskab", name_en: "Ministry of Civil Protection", inst_type: "paragraf"}
+  "14": {entity_key: FL_PAR_14, name_da: "Udlændinge- og Integrationsministeriet", name_en: "Ministry of Immigration and Integration", inst_type: "paragraf"}
+  "15": {entity_key: MIN_SOCIAL}
+  "16": {entity_key: MIN_SUNDHED}
+  "17": {entity_key: MIN_BESKAEF}
+  "18": {entity_key: FL_PAR_18, name_da: "Ældreministeriet", name_en: "Ministry of the Elderly", inst_type: "paragraf"}
+  "19": {entity_key: MIN_UDDANNELSE}
+  "20": {entity_key: MIN_BOERN}
+  "21": {entity_key: MIN_KULTUR}
+  "22": {entity_key: MIN_KIRKE}
+  "23": {entity_key: MIN_MILJOE}
+  "24": {entity_key: FL_PAR_24, name_da: "Ministeriet for Fødevarer, Landbrug og Fiskeri", name_en: "Ministry of Food, Agriculture and Fisheries", inst_type: "paragraf"}
+  "25": {entity_key: MIN_DIGITALISERING}
+  "27": {entity_key: FL_PAR_27, name_da: "Ministeriet for Grøn Trepart", name_en: "Ministry for Green Transition", inst_type: "paragraf"}
+  "28": {entity_key: MIN_TRANSPORT}
+  "29": {entity_key: MIN_KLIMA}
+
+  # Non-ministry paragraffer (state-level aggregates)
+  "35": {entity_key: FL_PAR_35, name_da: "Generelle reserver", name_en: "General Reserves", inst_type: "paragraf"}
+  "36": {entity_key: FL_PAR_36, name_da: "Pensionsvæsenet", name_en: "Public Pensions", inst_type: "paragraf"}
+  "37": {entity_key: FL_PAR_37, name_da: "Renter", name_en: "Interest Payments", inst_type: "paragraf"}
+  "38": {entity_key: FL_PAR_38, name_da: "Skatter og afgifter", name_en: "Taxes and Duties", inst_type: "paragraf"}
+  "39": {entity_key: FL_PAR_39, name_da: "Lovbundne overførsler mv.", name_en: "Statutory Transfers", inst_type: "paragraf"}
+  "40": {entity_key: FL_PAR_40, name_da: "Genudlån mv.", name_en: "Re-lending", inst_type: "paragraf"}
+  "41": {entity_key: FL_PAR_41, name_da: "Beholdningsbevægelser mv.", name_en: "Balance Sheet Movements", inst_type: "paragraf"}
+  "42": {entity_key: FL_PAR_42, name_da: "Afdrag på statsgælden (netto)", name_en: "Debt Repayment (net)", inst_type: "paragraf"}
+  "45": {entity_key: FL_PAR_45, name_da: "Bevillingsparagraffen", name_en: "Appropriation Section", inst_type: "paragraf"}

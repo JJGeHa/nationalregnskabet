@@ -112,3 +112,95 @@ metrics:
     subcategory: interest
     source_system: dst
     source_identifier: "OFF3:UI=1.5. Renter mv."
+
+  # ── Finanslov metrics ─────────────────────────────────────────────
+  - metric_code: fl_appropriation
+    name_da: Finanslovsbevilling
+    name_en: Finanslov appropriation
+    unit: DKK_mio
+    category: budget
+    subcategory: appropriation
+    source_system: finanslov
+    source_identifier: "FL:finanslov"
+
+  - metric_code: fl_actual
+    name_da: Statsregnskab
+    name_en: Government accounts (actual)
+    unit: DKK_mio
+    category: budget
+    subcategory: actual
+    source_system: finanslov
+    source_identifier: "FL:regnskab"
+
+  # ── Kommune metrics ───────────────────────────────────────────────
+  - metric_code: kommune_tax_rate
+    name_da: Kommunal udskrivningsprocent
+    name_en: Municipal income tax rate
+    unit: pct
+    category: taxation
+    subcategory: income_tax
+    source_system: dst
+    source_identifier: "PSKAT:SKATPCT=Kommunal udskrivningsprocent"
+
+  - metric_code: kommune_church_tax
+    name_da: Kirkeskatteprocent
+    name_en: Church tax rate
+    unit: pct
+    category: taxation
+    subcategory: church_tax
+    source_system: dst
+    source_identifier: "PSKAT:SKATPCT=Kirkeskatteprocent"
+
+  - metric_code: kommune_land_tax
+    name_da: Grundskyldspromille
+    name_en: Land value tax rate
+    unit: promille
+    category: taxation
+    subcategory: land_tax
+    source_system: dst
+    source_identifier: "PSKAT:SKATPCT=Grundskyldspromille"
+
+  - metric_code: kommune_operating_cost
+    name_da: Kommunale driftsudgifter pr. indbygger
+    name_en: Municipal operating expenditure per capita
+    unit: DKK
+    category: expenditure
+    subcategory: per_capita
+    source_system: dst
+    source_identifier: "NGLK:BNØGLE=Kommunale driftsudgifter pr. indbygger"
+
+  - metric_code: kommune_service_cost
+    name_da: Serviceudgifter pr. indbygger
+    name_en: Service expenditure per capita
+    unit: DKK
+    category: expenditure
+    subcategory: per_capita
+    source_system: dst
+    source_identifier: "NGLK:BNØGLE=Serviceudgifter pr. indbygger"
+
+  - metric_code: kommune_debt_per_capita
+    name_da: Langfristet gæld pr. indbygger
+    name_en: Long-term debt per capita
+    unit: DKK
+    category: debt
+    subcategory: per_capita
+    source_system: dst
+    source_identifier: "NGLK:BNØGLE=Langfristet gæld pr. indbygger"
+
+  - metric_code: kommune_health_cost
+    name_da: Sundhedsudgifter pr. indbygger
+    name_en: Health expenditure per capita
+    unit: DKK
+    category: expenditure
+    subcategory: per_capita
+    source_system: dst
+    source_identifier: "NGLK:BNØGLE=Sundhedsudgifter pr. indbygger"
+
+  - metric_code: kommune_education_cost
+    name_da: Folkeskoleudgifter pr. folkeskoleelev
+    name_en: Primary school expenditure per student
+    unit: DKK
+    category: expenditure
+    subcategory: per_student
+    source_system: dst
+    source_identifier: "NGLK:BNØGLE=Folkeskoleudgifter pr. folkeskoleelev"

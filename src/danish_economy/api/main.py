@@ -3,7 +3,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from danish_economy.api.routers import hello, timeseries
+from danish_economy.api.routers import finanslov, hello, kommune, timeseries
 
 app = FastAPI(
     title="Danish Economy Explorer",
@@ -20,3 +20,5 @@ app.add_middleware(
 
 app.include_router(hello.router)
 app.include_router(timeseries.router)
+app.include_router(finanslov.router)
+app.include_router(kommune.router)

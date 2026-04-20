@@ -626,7 +626,207 @@ institutions:
     geo_code: null
     geo_level: null
 
-  # ── Regioner ──────────────────────────────────────────────────────
+  # ── Finanslov-only paragraffer (not ministerier) ──────────────────
+  # These exist as budget entities but are not ministerier.
+  - entity_key: FL_PAR_01
+    name_da: Dronningen (Kongehuset)
+    name_en: The Monarch
+    inst_type: paragraf
+    inst_subtype: null
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: STAT
+    geo_code: null
+    geo_level: null
+
+  - entity_key: FL_PAR_02
+    name_da: Medlemmer af det kongelige hus
+    name_en: Royal House Members
+    inst_type: paragraf
+    inst_subtype: null
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: STAT
+    geo_code: null
+    geo_level: null
+
+  - entity_key: FL_PAR_03
+    name_da: Folketinget
+    name_en: The Danish Parliament
+    inst_type: paragraf
+    inst_subtype: null
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: STAT
+    geo_code: null
+    geo_level: null
+
+  - entity_key: FL_PAR_10
+    name_da: Økonomiministeriet
+    name_en: Ministry of Economic Affairs
+    inst_type: ministerium
+    inst_subtype: null
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: STAT
+    geo_code: null
+    geo_level: null
+
+  - entity_key: FL_PAR_13
+    name_da: Ministeriet for Samfundssikkerhed og Beredskab
+    name_en: Ministry of Civil Protection
+    inst_type: ministerium
+    inst_subtype: null
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: STAT
+    geo_code: null
+    geo_level: null
+
+  - entity_key: FL_PAR_14
+    name_da: Udlændinge- og Integrationsministeriet
+    name_en: Ministry of Immigration and Integration
+    inst_type: ministerium
+    inst_subtype: null
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: STAT
+    geo_code: null
+    geo_level: null
+
+  - entity_key: FL_PAR_18
+    name_da: Ældreministeriet
+    name_en: Ministry of the Elderly
+    inst_type: ministerium
+    inst_subtype: null
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: STAT
+    geo_code: null
+    geo_level: null
+
+  - entity_key: FL_PAR_24
+    name_da: Ministeriet for Fødevarer, Landbrug og Fiskeri
+    name_en: Ministry of Food, Agriculture and Fisheries
+    inst_type: ministerium
+    inst_subtype: null
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: STAT
+    geo_code: null
+    geo_level: null
+
+  - entity_key: FL_PAR_27
+    name_da: Ministeriet for Grøn Trepart
+    name_en: Ministry for Green Transition
+    inst_type: ministerium
+    inst_subtype: null
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: STAT
+    geo_code: null
+    geo_level: null
+
+  - entity_key: FL_PAR_35
+    name_da: Generelle reserver
+    name_en: General Reserves
+    inst_type: paragraf
+    inst_subtype: null
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: STAT
+    geo_code: null
+    geo_level: null
+
+  - entity_key: FL_PAR_36
+    name_da: Pensionsvæsenet
+    name_en: Public Pensions
+    inst_type: paragraf
+    inst_subtype: null
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: STAT
+    geo_code: null
+    geo_level: null
+
+  - entity_key: FL_PAR_37
+    name_da: Renter
+    name_en: Interest Payments
+    inst_type: paragraf
+    inst_subtype: null
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: STAT
+    geo_code: null
+    geo_level: null
+
+  - entity_key: FL_PAR_38
+    name_da: Skatter og afgifter
+    name_en: Taxes and Duties
+    inst_type: paragraf
+    inst_subtype: null
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: STAT
+    geo_code: null
+    geo_level: null
+
+  - entity_key: FL_PAR_39
+    name_da: Lovbundne overførsler mv.
+    name_en: Statutory Transfers
+    inst_type: paragraf
+    inst_subtype: null
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: STAT
+    geo_code: null
+    geo_level: null
+
+  - entity_key: FL_PAR_40
+    name_da: Genudlån mv.
+    name_en: Re-lending
+    inst_type: paragraf
+    inst_subtype: null
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: STAT
+    geo_code: null
+    geo_level: null
+
+  - entity_key: FL_PAR_41
+    name_da: Beholdningsbevægelser mv.
+    name_en: Balance Sheet Movements
+    inst_type: paragraf
+    inst_subtype: null
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: STAT
+    geo_code: null
+    geo_level: null
+
+  - entity_key: FL_PAR_42
+    name_da: Afdrag på statsgælden (netto)
+    name_en: Debt Repayment (net)
+    inst_type: paragraf
+    inst_subtype: null
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: STAT
+    geo_code: null
+    geo_level: null
+
+  - entity_key: FL_PAR_45
+    name_da: Bevillingsparagraffen
+    name_en: Appropriation Section
+    inst_type: paragraf
+    inst_subtype: null
+    sector_esa2010: S1311
+    is_general_government: true
+    parent_entity_key: STAT
+    geo_code: null
+    geo_level: null
+
+  # ── Regioner ──────────────────────────────────────────────��───────
   # (Also auto-populated from DST at load time, but included here for
   #  English names and parent linkage)
   - entity_key: REG_HOVEDSTADEN
