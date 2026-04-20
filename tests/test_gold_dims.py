@@ -75,10 +75,10 @@ class TestDimMetric:
         path = build_dim_metric(data_dir=tmp_path)
         assert path.exists()
 
-    def test_has_12_metrics(self, tmp_path: Path) -> None:
+    def test_has_expected_metrics(self, tmp_path: Path) -> None:
         build_dim_metric(data_dir=tmp_path)
         df = pl.read_parquet(tmp_path / "gold" / "dim_metric.parquet")
-        assert df.shape[0] == 12
+        assert df.shape[0] == 22
 
     def test_metric_keys_unique(self, tmp_path: Path) -> None:
         build_dim_metric(data_dir=tmp_path)
