@@ -1,7 +1,8 @@
 "use client";
 
 import * as Plot from "@observablehq/plot";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
+import { useContainerWidth } from "../../hooks/use-container-width";
 
 interface KommuneRow {
   entity_key: string;
@@ -17,7 +18,7 @@ export function CompareBarChart({
   data: KommuneRow[];
   unit: string;
 }) {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const { ref: containerRef, width } = useContainerWidth();
 
   useEffect(() => {
     if (!containerRef.current || data.length === 0) return;
@@ -29,9 +30,9 @@ export function CompareBarChart({
         fontSize: "13px",
         fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
       },
-      width: 700,
+      width,
       height: Math.max(300, sorted.length * 32),
-      marginLeft: 160,
+      marginLeft: Math.min(160, width * 0.25),
       x: {
         label: unit === "pct" ? "%" : unit === "promille" ? "\u2030" : "Kr.",
         grid: true,
@@ -64,7 +65,7 @@ export function CompareBarChart({
     return () => {
       chart.remove();
     };
-  }, [data, unit]);
+  }, [data, unit, width, containerRef]);
 
   return <div ref={containerRef} />;
 }

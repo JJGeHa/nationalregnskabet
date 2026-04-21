@@ -1,92 +1,64 @@
-import { CompareBarChart } from "./charts";
+import Link from "next/link";
+import { KommuneCompareSection } from "./compare-client";
+import { KommuneSearch } from "./search-client";
 
 const API_URL = process.env.API_URL ?? "http://localhost:8000";
 
-interface KommuneRow {
+interface KommuneListItem {
   entity_key: string;
   name_da: string;
-  year: number;
-  value: number;
+  region: string;
 }
-
-interface KommuneCompare {
-  metric: string;
-  metric_name_da: string;
-  unit: string;
-  data: KommuneRow[];
-}
-
-// Top 10 largest kommuner by population for default comparison
-const DEFAULT_KOMMUNER = [
-  "KOM_0101",
-  "KOM_0751",
-  "KOM_0461",
-  "KOM_0851",
-  "KOM_0151",
-  "KOM_0615",
-  "KOM_0265",
-  "KOM_0657",
-  "KOM_0630",
-  "KOM_0561",
-].join(",");
-
-const METRICS = [
-  { code: "kommune_tax_rate", label: "Kommuneskat" },
-  { code: "kommune_operating_cost", label: "Driftsudgifter pr. indb." },
-  { code: "kommune_service_cost", label: "Serviceudgifter pr. indb." },
-  { code: "kommune_debt_per_capita", label: "Langfristet gaeld pr. indb." },
-  { code: "kommune_health_cost", label: "Sundhedsudgifter pr. indb." },
-  { code: "kommune_education_cost", label: "Folkeskoleudgifter pr. elev" },
-];
 
 export default async function KommunerPage() {
-  const sections: { metric: string; data: KommuneCompare | null }[] = [];
+  let kommuneList: KommuneListItem[] = [];
 
-  for (const m of METRICS) {
-    try {
-      const res = await fetch(
-        `${API_URL}/kommuner/compare?metric=${m.code}&entities=${DEFAULT_KOMMUNER}&year=2023`,
-        { cache: "no-store" },
-      );
-      if (res.ok) {
-        sections.push({ metric: m.label, data: await res.json() });
-      } else {
-        sections.push({ metric: m.label, data: null });
-      }
-    } catch {
-      sections.push({ metric: m.label, data: null });
-    }
+  try {
+    const listRes = await fetch(`${API_URL}/kommuner/list`, {
+      cache: "no-store",
+    });
+    if (listRes.ok) kommuneList = await listRes.json();
+  } catch {
+    /* ignore */
   }
 
   return (
-    <div className="flex flex-1 flex-col items-center px-4 py-12">
+    <div className="flex flex-1 flex-col items-center px-4 py-10 sm:py-14">
       <main className="w-full max-w-5xl">
-        <h1 className="text-3xl font-bold tracking-tight">
-          Kommunesammenligning
-        </h1>
-        <p className="mt-2 text-zinc-500">
-          Sammenligning af de 10 stoerste kommuner paa udvalgte noegletal
-          (2023).
+        <nav className="mb-6 text-[13px] text-[var(--text-muted)]">
+          <Link href="/" className="hover:text-[var(--foreground)]">
+            Nationalregnskabet
+          </Link>
+          {" / "}
+          <span className="text-[var(--foreground)]">Kommuner</span>
+        </nav>
+
+        <h1 className="text-3xl tracking-tight sm:text-4xl">Kommuner</h1>
+        <p className="mt-2 text-[15px] text-[var(--text-muted)]">
+          98 danske kommuner — sammenlign noegletal eller udforsk en enkelt
+          kommune.
         </p>
 
-        {sections.map((s) => (
-          <div key={s.metric} className="mt-10">
-            <h2 className="text-xl font-semibold">
-              {s.data?.metric_name_da ?? s.metric}
-            </h2>
-            {s.data && s.data.data.length > 0 ? (
-              <div className="mt-4">
-                <CompareBarChart data={s.data.data} unit={s.data.unit} />
-              </div>
-            ) : (
-              <p className="mt-2 text-sm text-zinc-400">
-                Ingen data tilgaengelig.
-              </p>
-            )}
-          </div>
-        ))}
+        {/* Kommune search */}
+        {kommuneList.length > 0 && (
+          <section className="mt-8">
+            <KommuneSearch kommuner={kommuneList} />
+          </section>
+        )}
 
-        <p className="mt-8 text-sm text-zinc-400">
+        {/* Comparison section with metric selector */}
+        <KommuneCompareSection />
+
+        <div className="mt-10">
+          <Link
+            href="/kort"
+            className="text-[13px] font-medium text-amber-700 hover:underline"
+          >
+            Se kommunedata paa kort →
+          </Link>
+        </div>
+
+        <p className="mt-10 text-[12px] text-[var(--text-muted)]">
           Kilde: Danmarks Statistik, PSKAT / NGLK
         </p>
       </main>

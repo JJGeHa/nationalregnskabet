@@ -1,8 +1,44 @@
 @import "tailwindcss";
 
+/* ═══════════════════════════════════════════════════
+   Nationalregnskabet — Scandinavian Editorial Theme
+   ═══════════════════════════════════════════════════ */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
+
+  /* Core palette */
+  --background: #f8f7f4;
+  --foreground: #1a1a2e;
+  --surface: #ffffff;
+  --surface-raised: #ffffff;
+
+  /* Borders */
+  --border: #e2dfda;
+  --border-subtle: #edeae5;
+
+  /* Text */
+  --text-muted: #6e6b7b;
+  --text-caption: #8a8798;
+
+  /* Semantic accents */
+  --accent-income: #0d7c5f;
+  --accent-income-muted: #e8f5f0;
+  --accent-expense: #2d4a8a;
+  --accent-expense-muted: #e8edf6;
+  --accent-transfer: #b45309;
+  --accent-transfer-muted: #fef3e2;
+  --accent-highlight: #d97706;
+
+  /* Accent line (editorial top-bar) */
+  --accent-bar: #c0392b;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(26, 26, 46, 0.04);
+  --shadow-md:
+    0 2px 8px rgba(26, 26, 46, 0.06), 0 1px 2px rgba(26, 26, 46, 0.04);
+  --shadow-lg:
+    0 4px 16px rgba(26, 26, 46, 0.07), 0 2px 4px rgba(26, 26, 46, 0.03);
 }
 
 @theme inline {
@@ -10,17 +46,140 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-display: var(--font-instrument-serif);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+/* ── Typography ── */
+
+h1,
+h2 {
+  font-family: var(--font-instrument-serif), Georgia, serif;
+}
+
+h1 {
+  letter-spacing: -0.02em;
+}
+
+/* ── Selection ── */
+
+::selection {
+  background: rgba(45, 74, 138, 0.12);
+}
+
+/* ── Focus ring ── */
+
+:focus-visible {
+  outline: 2px solid var(--accent-expense);
+  outline-offset: 2px;
+}
+
+/* ── Base transitions ── */
+
+a,
+button {
+  transition:
+    color 0.15s ease,
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    box-shadow 0.2s ease,
+    opacity 0.15s ease;
+}
+
+/* ── Grain texture overlay ── */
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.25;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.5'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+/* ── Entrance animations ── */
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Staggered delays */
+.delay-1 {
+  animation-delay: 0.08s;
+}
+.delay-2 {
+  animation-delay: 0.16s;
+}
+.delay-3 {
+  animation-delay: 0.24s;
+}
+.delay-4 {
+  animation-delay: 0.32s;
+}
+.delay-5 {
+  animation-delay: 0.4s;
+}
+
+/* ── Editorial rule lines ── */
+
+.rule-top {
+  border-top: 2px solid var(--foreground);
+  padding-top: 0.75rem;
+}
+
+.rule-top-thin {
+  border-top: 1px solid var(--border);
+  padding-top: 0.75rem;
+}
+
+/* ── Card hover lift ── */
+
+.card-hover {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ── Scrollbar (Webkit) ── */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-caption);
 }
