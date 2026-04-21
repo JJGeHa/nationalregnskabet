@@ -74,6 +74,15 @@ export function BudgetBarChart({ data }: { data: ParagrafRow[] }) {
             fill: "#6b6b7b",
           },
         ),
+        Plot.tip(
+          sorted,
+          Plot.pointerY({
+            x: "value",
+            y: "name_da",
+            title: (d: ParagrafRow) =>
+              `${d.name_da}\n${d.entity_key}\n${fmtMia(d.value)} kr.`,
+          }),
+        ),
       ],
     });
 
@@ -157,6 +166,15 @@ export function BudgetTimeseriesChart({
           fill: "type",
           r: 3,
         }),
+        Plot.tip(
+          plotData,
+          Plot.pointer({
+            x: "year",
+            y: "value",
+            title: (d: { year: number; type: string; value: number }) =>
+              `${d.year}\n${d.type}\n${fmtMia(d.value)} kr.`,
+          }),
+        ),
       ],
     });
 

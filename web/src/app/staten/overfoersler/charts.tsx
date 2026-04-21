@@ -74,6 +74,16 @@ export function TransferCharts({ points }: { points: TransferPoint[] }) {
           }),
         ),
         Plot.ruleY([0]),
+        Plot.tip(
+          plotData,
+          Plot.pointerX({
+            x: "year",
+            y: "value",
+            fill: "type",
+            title: (d: { year: number; type: string; value: number }) =>
+              `${d.year}\n${d.type}\n${fmtAxisMia(d.value)} kr.`,
+          }),
+        ),
       ],
     });
 

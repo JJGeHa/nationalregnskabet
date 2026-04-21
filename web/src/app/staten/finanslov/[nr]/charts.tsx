@@ -61,6 +61,15 @@ export function ParagrafCharts({ data }: { data: HovedområdeRow[] }) {
           fontSize: 11,
           fill: "#6b6b7b",
         }),
+        Plot.tip(
+          sorted,
+          Plot.pointerY({
+            x: "finanslov",
+            y: "name",
+            title: (d: HovedområdeRow) =>
+              `${d.name}\n§${d.hovedomraade_nr}\n${fmtMia(d.finanslov)} kr.`,
+          }),
+        ),
       ],
     });
 

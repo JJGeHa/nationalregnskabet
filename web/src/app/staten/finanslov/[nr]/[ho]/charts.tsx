@@ -80,6 +80,15 @@ export function KontoBarChart({
             fill: "#6e6b7b",
           },
         ),
+        Plot.tip(
+          sorted,
+          Plot.pointerY({
+            x: "finanslov",
+            y: "name",
+            title: (d: KontoRow) =>
+              `${d.name}\n${d.hovedkonto_nr}\n${fmtMia(d.finanslov)} kr.`,
+          }),
+        ),
       ],
     });
 

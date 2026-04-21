@@ -116,6 +116,15 @@ export function KommuneCompareSection() {
           fontSize: 12,
           fill: "#6b6b7b",
         }),
+        Plot.tip(
+          sorted,
+          Plot.pointerY({
+            x: "value",
+            y: "name_da",
+            title: (d: KommuneRow) =>
+              `${d.name_da}\n${fmtValue(d.value, data.unit)}`,
+          }),
+        ),
       ],
     });
 
