@@ -5,6 +5,7 @@ from __future__ import annotations
 from fastapi import APIRouter, Query
 from pydantic import BaseModel
 
+from danish_economy.api.routers.finanslov import effective_detail_year
 from danish_economy.warehouse import get_connection
 
 router = APIRouter(prefix="/transfers", tags=["transfers"])
@@ -49,6 +50,7 @@ def get_transfer_overview(
 ) -> TransferOverview:
     """Return transfer amounts from state to kommuner/regioner."""
     conn = get_connection()
+    effective = effective_detail_year(conn, year)
     items: list[TransferItem] = []
 
     for par_nr, ho_nr, label in TRANSFER_ITEMS:
@@ -58,7 +60,7 @@ def get_transfer_overview(
                WHERE fiscal_year = ?
                  AND paragraf_nr = ?
                  AND hovedomraade_nr = ?""",
-            [year, par_nr, ho_nr],
+            [effective, par_nr, ho_nr],
         ).fetchone()
         if row:
             items.append(
@@ -73,7 +75,7 @@ def get_transfer_overview(
 
     conn.close()
     total = sum(i.finanslov for i in items)
-    return TransferOverview(year=year, total=total, items=items)
+    return TransferOverview(year=effective, total=total, items=items)
 
 
 @router.get("/timeseries", response_model=TransferTimeseries)

@@ -30,6 +30,8 @@ const CATEGORY: Record<string, string> = {
   "41": "finansiering",
 };
 
+const REQUESTED_YEAR = 2026;
+
 export default async function HovedområdePage({
   params,
 }: {
@@ -118,6 +120,11 @@ export default async function HovedområdePage({
             &sect;{detail.paragraf_nr}.{detail.hovedomraade_nr} under{" "}
             {detail.paragraf_name} &mdash; Finanslov {detail.year}
           </p>
+          {detail.year !== REQUESTED_YEAR && (
+            <p className="mt-2 text-[12px] text-[var(--text-muted)]">
+              Konto-opdeling er kun tilgaengelig til og med {detail.year}.
+            </p>
+          )}
         </div>
 
         {/* Summary */}

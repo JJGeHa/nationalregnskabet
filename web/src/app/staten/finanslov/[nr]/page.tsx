@@ -30,6 +30,8 @@ const CATEGORY: Record<string, string> = {
   "41": "finansiering",
 };
 
+const REQUESTED_YEAR = 2026;
+
 export default async function ParagrafPage({
   params,
 }: {
@@ -127,6 +129,13 @@ export default async function ParagrafPage({
           <p className="mt-1 text-[14px] text-[var(--text-muted)]">
             &sect;{detail.paragraf_nr} &mdash; Finansloven {detail.year}
           </p>
+          {detail.year !== REQUESTED_YEAR && (
+            <p className="mt-2 text-[12px] text-[var(--text-muted)]">
+              Detaljeret hovedomraade-opdeling er kun tilgaengelig til og med{" "}
+              {detail.year}. {REQUESTED_YEAR}-tal findes kun paa
+              paragraf-niveau.
+            </p>
+          )}
         </div>
 
         {/* ─── SUMMARY CARDS ─── */}

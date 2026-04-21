@@ -36,6 +36,8 @@ interface TransferOverview {
   items: TransferItem[];
 }
 
+const REQUESTED_YEAR = 2026;
+
 export default async function StatenPage() {
   let treemap: TreemapData | null = null;
   let transfers: TransferOverview | null = null;
@@ -131,6 +133,9 @@ export default async function StatenPage() {
               </div>
               <p className="mt-1 text-[12px] text-[var(--text-muted)]">
                 Bloktilskud og overfoersler
+                {transfers && transfers.year !== REQUESTED_YEAR && (
+                  <span className="ml-1">({transfers.year})</span>
+                )}
               </p>
             </div>
           </div>

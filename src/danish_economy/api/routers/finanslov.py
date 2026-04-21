@@ -2,12 +2,52 @@
 
 from __future__ import annotations
 
+import duckdb
 from fastapi import APIRouter, Query
 from pydantic import BaseModel
 
 from danish_economy.warehouse import get_connection
 
 router = APIRouter(prefix="/finanslov", tags=["finanslov"])
+
+
+# Ministry-total summary rows (from the Finanslov PDF overview) populate
+# `finanslov_detail` for 2025+ with a single synthetic hovedomraade per
+# paragraf. Years with the full breakdown have ~120+ hovedomraader. This
+# threshold cleanly separates the two regimes.
+_DETAIL_THRESHOLD = 50
+
+
+def latest_detail_year(conn: duckdb.DuckDBPyConnection) -> int:
+    """Return the most recent fiscal year with full hovedomraade breakdown."""
+    row = conn.execute(
+        """
+        SELECT MAX(fiscal_year) FROM (
+            SELECT fiscal_year
+            FROM finanslov_detail
+            GROUP BY fiscal_year
+            HAVING COUNT(DISTINCT hovedomraade_nr) > ?
+        )
+        """,
+        [_DETAIL_THRESHOLD],
+    ).fetchone()
+    return int(row[0]) if row and row[0] is not None else 2024
+
+
+def effective_detail_year(
+    conn: duckdb.DuckDBPyConnection, requested: int
+) -> int:
+    """Fall back to the latest year with real breakdown when requested year
+    only has paragraph-total summary rows.
+    """
+    row = conn.execute(
+        "SELECT COUNT(DISTINCT hovedomraade_nr) "
+        "FROM finanslov_detail WHERE fiscal_year = ?",
+        [requested],
+    ).fetchone()
+    if row and row[0] > _DETAIL_THRESHOLD:
+        return requested
+    return latest_detail_year(conn)
 
 
 # ---------- schemas ----------
@@ -236,6 +276,7 @@ def get_paragraf_detail(
     """Return breakdown of a single paragraf by hovedområde."""
     conn = get_connection()
     padded = nr.zfill(2)
+    effective = effective_detail_year(conn, year)
 
     sql = """
         SELECT
@@ -248,7 +289,7 @@ def get_paragraf_detail(
           AND paragraf_nr = ?
         ORDER BY finanslov DESC
     """
-    rows = conn.execute(sql, [year, padded]).fetchall()
+    rows = conn.execute(sql, [effective, padded]).fetchall()
 
     name_row = conn.execute(
         """SELECT DISTINCT paragraf_name
@@ -276,7 +317,7 @@ def get_paragraf_detail(
     return ParagrafDetail(
         paragraf_nr=padded,
         paragraf_name=par_name,
-        year=year,
+        year=effective,
         total_finanslov=total_fl,
         total_regnskab=total_reg if total_reg else None,
         hovedomraader=ho_rows,
@@ -376,6 +417,7 @@ def get_hovedomraade_detail(
     """Return breakdown of a single hovedområde into its konti."""
     conn = get_connection()
     padded_nr = nr.zfill(2)
+    effective = effective_detail_year(conn, year)
 
     sql = """
         SELECT
@@ -389,7 +431,7 @@ def get_hovedomraade_detail(
         GROUP BY hovedkonto_nr, hovedkonto_name
         ORDER BY finanslov DESC
     """
-    rows = conn.execute(sql, [year, padded_nr, ho]).fetchall()
+    rows = conn.execute(sql, [effective, padded_nr, ho]).fetchall()
 
     # Get names
     meta = conn.execute(
@@ -421,7 +463,7 @@ def get_hovedomraade_detail(
         paragraf_name=par_name,
         hovedomraade_nr=ho,
         hovedomraade_name=ho_name,
-        year=year,
+        year=effective,
         total_finanslov=total,
         konti=konti,
     )
