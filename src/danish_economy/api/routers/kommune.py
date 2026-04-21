@@ -146,3 +146,111 @@ def get_map_data(
             }
 
     return {"metric": metric, "year": year, "values": values}
+
+
+class KommuneMetricValue(BaseModel):
+    metric_code: str
+    name_da: str
+    unit: str
+    value: float
+    year: int
+    national_avg: float | None
+
+
+class KommuneDetail(BaseModel):
+    entity_key: str
+    name_da: str
+    name_en: str
+    region: str
+    geo_code: str | None
+    metrics: list[KommuneMetricValue]
+
+
+@router.get("/{entity_key}", response_model=KommuneDetail)
+def get_kommune_detail(
+    entity_key: str,
+    year: int = Query(default=2024),
+) -> KommuneDetail:
+    """Return all metrics for a single kommune with national averages."""
+    conn = get_connection()
+
+    inst = conn.execute(
+        """SELECT entity_key, name_da, name_en, geo_code,
+                  parent_entity_key
+           FROM dim_institution
+           WHERE entity_key = ? AND is_current AND inst_type = 'kommune'""",
+        [entity_key],
+    ).fetchone()
+    if not inst:
+        conn.close()
+        from fastapi import HTTPException
+
+        raise HTTPException(404, f"Kommune {entity_key} not found")
+
+    region_row = conn.execute(
+        """SELECT name_da FROM dim_institution
+           WHERE entity_key = ? AND is_current""",
+        [inst[4]],
+    ).fetchone()
+    region = region_row[0] if region_row else ""
+
+    # All metrics for this kommune, latest available year <= requested
+    rows = conn.execute(
+        """SELECT m.metric_code, m.name_da, m.unit, f.value, d.year
+           FROM fct_economic_metric f
+           JOIN dim_date d ON f.date_key = d.date_key
+           JOIN dim_institution i ON f.inst_key = i.inst_key
+           JOIN dim_metric m ON f.metric_key = m.metric_key
+           WHERE i.entity_key = ?
+             AND i.is_current
+             AND d.year <= ?
+           ORDER BY m.metric_code, d.year DESC""",
+        [entity_key, year],
+    ).fetchall()
+
+    # Deduplicate: keep latest year per metric
+    seen: set[str] = set()
+    metric_rows: list[tuple[str, str, str, float, int]] = []
+    for r in rows:
+        if r[0] not in seen:
+            seen.add(r[0])
+            metric_rows.append(r)
+
+    # National averages for the same metrics/years
+    metrics: list[KommuneMetricValue] = []
+    for mc, name_da, unit, value, yr in metric_rows:
+        avg_row = conn.execute(
+            """SELECT AVG(f.value)
+               FROM fct_economic_metric f
+               JOIN dim_date d ON f.date_key = d.date_key
+               JOIN dim_institution i ON f.inst_key = i.inst_key
+               JOIN dim_metric m ON f.metric_key = m.metric_key
+               WHERE m.metric_code = ?
+                 AND d.year = ?
+                 AND i.inst_type = 'kommune'
+                 AND i.is_current""",
+            [mc, yr],
+        ).fetchone()
+        avg = avg_row[0] if avg_row else None
+
+        metrics.append(
+            KommuneMetricValue(
+                metric_code=mc,
+                name_da=name_da,
+                unit=unit,
+                value=value,
+                year=yr,
+                national_avg=round(avg, 2) if avg else None,
+            )
+        )
+
+    conn.close()
+
+    return KommuneDetail(
+        entity_key=inst[0],
+        name_da=inst[1],
+        name_en=inst[2],
+        region=region,
+        geo_code=inst[3],
+        metrics=metrics,
+    )
