@@ -1,6 +1,8 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { fmtDKK, fmtPct } from "../../lib/format";
 
 const API_URL = "http://localhost:8000";
 
@@ -20,16 +22,22 @@ const METRICS = [
 ];
 
 export function KommuneMap() {
+  const router = useRouter();
   const mapRef = useRef<HTMLDivElement>(null);
   const [metric, setMetric] = useState(METRICS[0].code);
+  const metricRef = useRef(metric);
   const [mapData, setMapData] = useState<MapData | null>(null);
   const [tooltip, setTooltip] = useState<string | null>(null);
   const [mapLoaded, setMapLoaded] = useState(false);
 
+  useEffect(() => {
+    metricRef.current = metric;
+  }, [metric]);
+
   // Fetch map data when metric changes
   useEffect(() => {
     fetch(`${API_URL}/kommuner/map-data?metric=${metric}&year=2023`)
-      .then((r) => r.json())
+      .then((r) => (r.ok ? r.json() : null))
       .then(setMapData)
       .catch(() => setMapData(null));
   }, [metric]);
@@ -60,11 +68,11 @@ export function KommuneMap() {
             },
           ],
         },
-        center: [10.5, 56.0],
-        zoom: 6.5,
+        center: [10.8, 55.7],
+        zoom: 5.8,
         maxBounds: [
-          [6.5, 54.3],
-          [15.5, 58.0],
+          [5.5, 53.5],
+          [16.0, 58.5],
         ],
       });
 
@@ -105,11 +113,15 @@ export function KommuneMap() {
           const props = e.features[0].properties;
           const name = props?.navn || "Unknown";
           const val = props?.dataValue;
-          setTooltip(
-            val !== undefined && val !== null
-              ? `${name}: ${Number(val).toLocaleString("da-DK")}`
-              : name,
-          );
+          if (val !== undefined && val !== null) {
+            const n = Number(val);
+            const active = metricRef.current;
+            const formatted =
+              active === "kommune_tax_rate" ? fmtPct(n, 2) : fmtDKK(n);
+            setTooltip(`${name}: ${formatted}`);
+          } else {
+            setTooltip(name);
+          }
           map.getCanvas().style.cursor = "pointer";
         }
       });
@@ -118,13 +130,22 @@ export function KommuneMap() {
         setTooltip(null);
         map.getCanvas().style.cursor = "";
       });
+
+      map.on("click", "kommuner-fill", (e) => {
+        if (e.features && e.features.length > 0) {
+          const kode = e.features[0].properties?.kode;
+          if (kode) {
+            router.push(`/kommuner/KOM_${kode}`);
+          }
+        }
+      });
     }
 
     initMap();
     return () => {
       cancelled = true;
     };
-  }, [mapLoaded]);
+  }, [mapLoaded, router]);
 
   // Update colors when data changes
   useEffect(() => {
@@ -190,10 +211,10 @@ export function KommuneMap() {
             type="button"
             key={m.code}
             onClick={() => setMetric(m.code)}
-            className={`rounded px-3 py-1.5 text-sm ${
+            className={`rounded-lg px-3 py-1.5 text-[13px] font-medium transition ${
               metric === m.code
-                ? "bg-blue-600 text-white"
-                : "bg-zinc-100 text-zinc-700 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-300"
+                ? "bg-[var(--foreground)] text-white"
+                : "bg-[var(--border-subtle)] text-[var(--text-muted)] hover:bg-[var(--border)] hover:text-[var(--foreground)]"
             }`}
           >
             {m.label}
@@ -202,9 +223,9 @@ export function KommuneMap() {
       </div>
 
       <div className="relative">
-        <div ref={mapRef} className="h-[600px] w-full rounded-lg border" />
+        <div ref={mapRef} className="h-[600px] w-full" />
         {tooltip && (
-          <div className="pointer-events-none absolute left-4 top-4 rounded bg-white/90 px-3 py-1.5 text-sm font-medium shadow dark:bg-zinc-900/90">
+          <div className="pointer-events-none absolute left-4 top-4 rounded-lg bg-[var(--surface)]/95 px-3 py-1.5 text-[13px] font-medium shadow-md">
             {tooltip}
           </div>
         )}
