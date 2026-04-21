@@ -21,7 +21,7 @@ from danish_economy.etl.transform.silver.dst import transform_table
 from danish_economy.etl.transform.silver.finanslov import transform_finanslov_range
 
 FL_START = 2010
-FL_END = 2024
+FL_END = 2026
 
 
 def main() -> None:
