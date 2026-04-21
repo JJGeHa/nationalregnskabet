@@ -3,7 +3,7 @@
 !.env.example
 
 # Data (derived at runtime)
-data/warehouse.duckdb
+data/warehouse.duckdb*
 data/bronze/
 data/silver/
 data/gold/
