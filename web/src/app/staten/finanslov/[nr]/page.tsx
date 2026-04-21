@@ -69,7 +69,7 @@ export default async function ParagrafPage({
           <ErrorBanner
             title="Paragraf ikke fundet"
             message={error ?? "Ikke fundet"}
-            hint={`Proev at gaa tilbage til oversigten. Paragraf ${nr} findes maaske ikke for 2026.`}
+            hint={`Proev at gaa tilbage til oversigten. Paragraf ${nr} findes maaske ikke.`}
           />
         </main>
       </div>

@@ -70,7 +70,7 @@ export default async function HovedområdePage({
           <ErrorBanner
             title="Hovedomraade ikke fundet"
             message={error ?? "Ikke fundet"}
-            hint={`§${nr}.${ho} findes maaske ikke for 2026.`}
+            hint={`§${nr}.${ho} findes maaske ikke.`}
           />
         </main>
       </div>
@@ -120,9 +120,22 @@ export default async function HovedområdePage({
             &sect;{detail.paragraf_nr}.{detail.hovedomraade_nr} under{" "}
             {detail.paragraf_name} &mdash; Finanslov {detail.year}
           </p>
-          {detail.year !== REQUESTED_YEAR && (
+          {detail.year !== REQUESTED_YEAR && detail.konti.length > 0 && (
             <p className="mt-2 text-[12px] text-[var(--text-muted)]">
               Konto-opdeling er kun tilgaengelig til og med {detail.year}.
+            </p>
+          )}
+          {detail.konti.length === 0 && (
+            <p className="mt-2 text-[12px] text-[var(--text-muted)]">
+              Der findes ingen konto-opdeling for §{detail.paragraf_nr}.
+              {detail.hovedomraade_nr}. Gaa tilbage til{" "}
+              <Link
+                href={`/staten/finanslov/${detail.paragraf_nr}`}
+                className="underline hover:text-[var(--foreground)]"
+              >
+                §{detail.paragraf_nr}
+              </Link>{" "}
+              for en liste over tilgaengelige hovedomraader.
             </p>
           )}
         </div>
