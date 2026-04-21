@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Breadcrumbs } from "../../../components/breadcrumbs";
 import { ErrorBanner } from "../../../components/error-banner";
 import { fmtDKK, fmtNumber, fmtPct, fmtPromille } from "../../../lib/format";
 
@@ -91,25 +92,22 @@ export default async function KommuneDetailPage({
   return (
     <div className="flex flex-1 flex-col items-center px-4 py-10 sm:py-14">
       <main className="w-full max-w-5xl">
-        {/* Breadcrumb */}
-        <nav className="mb-6 text-[13px] text-[var(--text-muted)]">
-          <Link href="/" className="hover:text-[var(--foreground)]">
-            Nationalregnskabet
-          </Link>
-          {" / "}
-          <Link href="/kommuner" className="hover:text-[var(--foreground)]">
-            Kommuner
-          </Link>
-          {" / "}
-          <span className="text-[var(--foreground)]">{detail.name_da}</span>
-        </nav>
+        <Breadcrumbs
+          items={[
+            { href: "/", label: "Nationalregnskabet" },
+            { href: "/kommuner", label: "Kommuner" },
+            { label: detail.name_da },
+          ]}
+        />
 
-        <h1 className="text-3xl tracking-tight sm:text-4xl">
-          {detail.name_da}
-        </h1>
-        <p className="mt-1 text-[15px] text-[var(--text-muted)]">
-          {detail.region}
-        </p>
+        <div className="animate-fade-up">
+          <h1 className="text-3xl tracking-tight sm:text-4xl">
+            {detail.name_da}
+          </h1>
+          <p className="mt-1 text-[15px] text-[var(--text-muted)]">
+            {detail.region}
+          </p>
+        </div>
 
         {/* Tax section */}
         {taxMetrics.length > 0 && (

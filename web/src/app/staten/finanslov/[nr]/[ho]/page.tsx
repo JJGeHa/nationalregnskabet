@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Breadcrumbs } from "../../../../../components/breadcrumbs";
 import { ErrorBanner } from "../../../../../components/error-banner";
 import { fmtMia, fmtMiaKr, fmtPct } from "../../../../../lib/format";
 import { KontoBarChart } from "./charts";
@@ -96,37 +97,28 @@ export default async function HovedområdePage({
   return (
     <div className="flex flex-1 flex-col items-center px-4 py-10 sm:py-14">
       <main className="w-full max-w-6xl">
-        <nav className="mb-6 text-[13px] text-[var(--text-muted)]">
-          <Link href="/" className="hover:text-[var(--foreground)]">
-            Hjem
-          </Link>
-          {" / "}
-          <Link
-            href="/staten/finanslov"
-            className="hover:text-[var(--foreground)]"
-          >
-            Finansloven
-          </Link>
-          {" / "}
-          <Link
-            href={`/staten/finanslov/${detail.paragraf_nr}`}
-            className="hover:text-[var(--foreground)]"
-          >
-            &sect;{detail.paragraf_nr}
-          </Link>
-          {" / "}
-          <span className="text-[var(--foreground)]">
-            {detail.hovedomraade_name}
-          </span>
-        </nav>
+        <Breadcrumbs
+          items={[
+            { href: "/", label: "Nationalregnskabet" },
+            { href: "/staten", label: "Staten" },
+            { href: "/staten/finanslov", label: "Finansloven" },
+            {
+              href: `/staten/finanslov/${detail.paragraf_nr}`,
+              label: `§${detail.paragraf_nr}`,
+            },
+            { label: detail.hovedomraade_name },
+          ]}
+        />
 
-        <h1 className="text-3xl tracking-tight sm:text-4xl">
-          {detail.hovedomraade_name}
-        </h1>
-        <p className="mt-1 text-[14px] text-[var(--text-muted)]">
-          &sect;{detail.paragraf_nr}.{detail.hovedomraade_nr} under{" "}
-          {detail.paragraf_name} &mdash; Finanslov {detail.year}
-        </p>
+        <div className="animate-fade-up">
+          <h1 className="text-3xl tracking-tight sm:text-4xl">
+            {detail.hovedomraade_name}
+          </h1>
+          <p className="mt-1 text-[14px] text-[var(--text-muted)]">
+            &sect;{detail.paragraf_nr}.{detail.hovedomraade_nr} under{" "}
+            {detail.paragraf_name} &mdash; Finanslov {detail.year}
+          </p>
+        </div>
 
         {/* Summary */}
         <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3">

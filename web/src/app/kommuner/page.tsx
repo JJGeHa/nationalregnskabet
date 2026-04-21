@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Breadcrumbs } from "../../components/breadcrumbs";
 import { KommuneCompareSection } from "./compare-client";
 import { KommuneSearch } from "./search-client";
 
@@ -25,19 +26,20 @@ export default async function KommunerPage() {
   return (
     <div className="flex flex-1 flex-col items-center px-4 py-10 sm:py-14">
       <main className="w-full max-w-5xl">
-        <nav className="mb-6 text-[13px] text-[var(--text-muted)]">
-          <Link href="/" className="hover:text-[var(--foreground)]">
-            Nationalregnskabet
-          </Link>
-          {" / "}
-          <span className="text-[var(--foreground)]">Kommuner</span>
-        </nav>
+        <Breadcrumbs
+          items={[
+            { href: "/", label: "Nationalregnskabet" },
+            { label: "Kommuner" },
+          ]}
+        />
 
-        <h1 className="text-3xl tracking-tight sm:text-4xl">Kommuner</h1>
-        <p className="mt-2 text-[15px] text-[var(--text-muted)]">
-          98 danske kommuner — sammenlign noegletal eller udforsk en enkelt
-          kommune.
-        </p>
+        <div className="animate-fade-up">
+          <h1 className="text-3xl tracking-tight sm:text-4xl">Kommuner</h1>
+          <p className="mt-2 text-[15px] text-[var(--text-muted)]">
+            98 danske kommuner — sammenlign noegletal eller udforsk en enkelt
+            kommune.
+          </p>
+        </div>
 
         {/* Kommune search */}
         {kommuneList.length > 0 && (

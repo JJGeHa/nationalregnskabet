@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Breadcrumbs, type Crumb } from "../../../components/breadcrumbs";
 import { ErrorBanner } from "../../../components/error-banner";
 import { fmtMiaKr } from "../../../lib/format";
 
@@ -98,34 +99,24 @@ export default async function InstitutionPage({
   return (
     <div className="flex flex-1 flex-col items-center px-4 py-10 sm:py-14">
       <main className="w-full max-w-5xl">
-        {/* Breadcrumb */}
-        <nav className="mb-6 text-[13px] text-[var(--text-muted)]">
-          <Link href="/" className="hover:text-[var(--foreground)]">
-            Nationalregnskabet
-          </Link>
-          {" / "}
-          <Link href="/staten" className="hover:text-[var(--foreground)]">
-            Staten
-          </Link>
-          {parent && (
-            <>
-              {" / "}
-              <Link
-                href={`/institutioner/${parent.entity_key}`}
-                className="hover:text-[var(--foreground)]"
-              >
-                {parent.name_da}
-              </Link>
-            </>
-          )}
-          {" / "}
-          <span className="text-[var(--foreground)]">{detail.name_da}</span>
-        </nav>
+        <Breadcrumbs
+          items={
+            [
+              { href: "/", label: "Nationalregnskabet" },
+              { href: "/staten", label: "Staten" },
+              parent && {
+                href: `/institutioner/${parent.entity_key}`,
+                label: parent.name_da,
+              },
+              { label: detail.name_da },
+            ].filter(Boolean) as Crumb[]
+          }
+        />
 
-        <h1 className="text-3xl tracking-tight sm:text-4xl">
+        <h1 className="animate-fade-up text-3xl tracking-tight sm:text-4xl">
           {detail.name_da}
         </h1>
-        <p className="mt-1 text-[15px] text-[var(--text-muted)]">
+        <p className="animate-fade-up mt-1 text-[15px] text-[var(--text-muted)]">
           {detail.name_en}
         </p>
 

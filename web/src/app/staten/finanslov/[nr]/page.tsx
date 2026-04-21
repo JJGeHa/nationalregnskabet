@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Breadcrumbs } from "../../../../components/breadcrumbs";
 import { ErrorBanner } from "../../../../components/error-banner";
 import { fmtMia, fmtMiaKr, fmtPct } from "../../../../lib/format";
 import { ParagrafCharts } from "./charts";
@@ -110,33 +111,23 @@ export default async function ParagrafPage({
   return (
     <div className="flex flex-1 flex-col items-center px-4 py-10 sm:py-14">
       <main className="w-full max-w-6xl">
-        <nav className="mb-6 text-[13px] text-[var(--text-muted)]">
-          <Link href="/" className="hover:text-[var(--foreground)]">
-            Hjem
-          </Link>
-          {" / "}
-          <Link href="/staten" className="hover:text-[var(--foreground)]">
-            Staten
-          </Link>
-          {" / "}
-          <Link
-            href="/staten/finanslov"
-            className="hover:text-[var(--foreground)]"
-          >
-            Finansloven
-          </Link>
-          {" / "}
-          <span className="text-[var(--foreground)]">
-            &sect;{detail.paragraf_nr}
-          </span>
-        </nav>
+        <Breadcrumbs
+          items={[
+            { href: "/", label: "Nationalregnskabet" },
+            { href: "/staten", label: "Staten" },
+            { href: "/staten/finanslov", label: "Finansloven" },
+            { label: `§${detail.paragraf_nr}` },
+          ]}
+        />
 
-        <h1 className="text-3xl tracking-tight sm:text-4xl">
-          {detail.paragraf_name}
-        </h1>
-        <p className="mt-1 text-[14px] text-[var(--text-muted)]">
-          &sect;{detail.paragraf_nr} &mdash; Finansloven {detail.year}
-        </p>
+        <div className="animate-fade-up">
+          <h1 className="text-3xl tracking-tight sm:text-4xl">
+            {detail.paragraf_name}
+          </h1>
+          <p className="mt-1 text-[14px] text-[var(--text-muted)]">
+            &sect;{detail.paragraf_nr} &mdash; Finansloven {detail.year}
+          </p>
+        </div>
 
         {/* ─── SUMMARY CARDS ─── */}
         <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
