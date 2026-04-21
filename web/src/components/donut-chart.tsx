@@ -2,6 +2,7 @@
 
 import * as d3 from "d3";
 import { useEffect, useRef, useState } from "react";
+import { fmtMiaKr, fmtPct } from "../lib/format";
 
 interface Slice {
   label: string;
@@ -24,13 +25,6 @@ const PALETTE = [
   "#3a5a9c", // steel blue
   "#6b5b3e", // olive
 ];
-
-function fmtMia(v: number): string {
-  const abs = Math.abs(v);
-  if (abs >= 1000) return `${(v / 1000).toFixed(1)} mia.`;
-  if (abs >= 1) return `${v.toFixed(0)} mio.`;
-  return `${v.toFixed(1)} mio.`;
-}
 
 export function DonutChart({
   slices,
@@ -89,13 +83,13 @@ export function DonutChart({
       .attr("stroke-width", 2)
       .style("cursor", "pointer")
       .on("mouseenter", (event, d) => {
-        const pct = ((Math.abs(d.data.value) / total) * 100).toFixed(1);
+        const pct = (Math.abs(d.data.value) / total) * 100;
         setTooltip({
           x: event.clientX,
           y: event.clientY,
           label: d.data.label,
-          value: `${fmtMia(d.data.value)} kr.`,
-          pct: `${pct}%`,
+          value: fmtMiaKr(d.data.value),
+          pct: fmtPct(pct),
         });
         d3.select(event.currentTarget)
           .transition()
@@ -133,7 +127,7 @@ export function DonutChart({
         .attr("font-size", "18px")
         .attr("font-weight", "bold")
         .attr("fill", "#1a1a2e")
-        .text(`${fmtMia(total)} kr.`);
+        .text(fmtMiaKr(total));
     }
   }, [slices, size, label]);
 
@@ -160,7 +154,7 @@ export function DonutLegend({ slices }: { slices: Slice[] }) {
   return (
     <div className="space-y-2">
       {slices.map((s, i) => {
-        const pct = ((Math.abs(s.value) / total) * 100).toFixed(1);
+        const pct = (Math.abs(s.value) / total) * 100;
         return (
           <div key={s.label} className="flex items-center gap-2.5 text-sm">
             <div
@@ -171,7 +165,7 @@ export function DonutLegend({ slices }: { slices: Slice[] }) {
             />
             <span className="flex-1 truncate text-[13px]">{s.label}</span>
             <span className="font-mono text-[13px] tabular-nums text-[var(--text-muted)]">
-              {pct}%
+              {fmtPct(pct)}
             </span>
           </div>
         );

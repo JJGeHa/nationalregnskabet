@@ -2,6 +2,7 @@
 
 import * as d3 from "d3";
 import { useEffect, useRef, useState } from "react";
+import { fmtMia, fmtMiaKr } from "../lib/format";
 
 interface TreemapChild {
   name: string;
@@ -41,13 +42,6 @@ const COLORS = [
   "#784212",
   "#1b4f72",
 ];
-
-function fmtMia(v: number): string {
-  const abs = Math.abs(v);
-  if (abs >= 1000) return `${(v / 1000).toFixed(0)} mia.`;
-  if (abs >= 1) return `${v.toFixed(0)} mio.`;
-  return `${v.toFixed(1)} mio.`;
-}
 
 export function BudgetTreemap({
   data,
@@ -177,7 +171,7 @@ export function BudgetTreemap({
           x: event.clientX,
           y: event.clientY,
           name: d.data.name,
-          value: `${fmtMia(d.value ?? 0)} kr.`,
+          value: fmtMiaKr(d.value ?? 0),
           parent: parentName,
         });
         d3.select(event.currentTarget)
@@ -276,7 +270,7 @@ export function RevenueSummary({ data }: { data: TreemapData }) {
           Udgifter i alt
         </div>
         <div className="mt-1 text-2xl font-bold text-[var(--accent-expense)]">
-          {fmtMia(expenditureTotal)} kr.
+          {fmtMiaKr(expenditureTotal)}
         </div>
       </div>
       <div className="rounded-xl border border-emerald-100 bg-emerald-50/60 p-4">
@@ -284,21 +278,20 @@ export function RevenueSummary({ data }: { data: TreemapData }) {
           Indtaegter i alt
         </div>
         <div className="mt-1 text-2xl font-bold text-emerald-700">
-          {fmtMia(
+          {fmtMiaKr(
             Math.abs(
               data.children
                 .filter((c) => c.value < 0)
                 .reduce((s, c) => s + c.value, 0),
             ),
-          )}{" "}
-          kr.
+          )}
         </div>
       </div>
       <div className="rounded-xl border border-[var(--border)] bg-[var(--surface)] p-4">
         <div className="text-[12px] text-[var(--text-muted)]">
           Netto (budget)
         </div>
-        <div className="mt-1 text-2xl font-bold">{fmtMia(data.total)} kr.</div>
+        <div className="mt-1 text-2xl font-bold">{fmtMiaKr(data.total)}</div>
       </div>
     </div>
   );

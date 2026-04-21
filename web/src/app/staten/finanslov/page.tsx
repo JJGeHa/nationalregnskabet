@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { fmtMia, fmtMiaKr, fmtPct } from "../../../lib/format";
 import { BudgetBarChart, BudgetTimeseriesChart } from "./charts";
 import { FinanslovTreemap } from "./treemap-client";
 
@@ -51,17 +52,6 @@ interface TreemapResponse {
   total_udgift: number;
   total_finansiering: number;
   children: TreemapNode[];
-}
-
-function fmtMia(v: number): string {
-  const abs = Math.abs(v);
-  if (abs >= 1000) return `${(v / 1000).toFixed(1)} mia.`;
-  return `${v.toFixed(0)} mio.`;
-}
-
-function fmtPct(v: number, total: number): string {
-  if (total === 0) return "—";
-  return `${((v / total) * 100).toFixed(1)}%`;
 }
 
 export default async function FinanslovPage() {
@@ -206,7 +196,7 @@ export default async function FinanslovPage() {
                     <h2 className="text-2xl tracking-tight">Udgifter</h2>
                     <p className="mt-1 text-[13px] text-[var(--text-muted)]">
                       {expenses.length} paragraffer — samlet{" "}
-                      {fmtMia(totalExpense)} kr.
+                      {fmtMiaKr(totalExpense)}
                     </p>
                   </div>
                 </div>
@@ -266,7 +256,7 @@ export default async function FinanslovPage() {
                               {fmtMia(par.value)}
                             </td>
                             <td className="hidden px-4 py-2.5 text-right font-mono text-[12px] tabular-nums text-[var(--text-muted)] sm:table-cell">
-                              {pct.toFixed(1)}%
+                              {fmtPct(pct)}
                             </td>
                             <td className="hidden px-4 py-2.5 md:table-cell">
                               <div className="h-[5px] w-full rounded-full bg-[var(--border-subtle)]">
@@ -294,7 +284,7 @@ export default async function FinanslovPage() {
                 <div className="rule-top">
                   <h2 className="text-2xl tracking-tight">Indtaegter</h2>
                   <p className="mt-1 text-[13px] text-[var(--text-muted)]">
-                    Statens indtaegter — samlet {fmtMia(totalIncome)} kr.
+                    Statens indtaegter — samlet {fmtMiaKr(totalIncome)}
                   </p>
                 </div>
 
@@ -386,7 +376,7 @@ export default async function FinanslovPage() {
                   <h2 className="text-2xl tracking-tight">Finansiering</h2>
                   <p className="mt-1 text-[13px] text-[var(--text-muted)]">
                     Gaeldsposter, renter og beholdningsbevaegelser — samlet{" "}
-                    {fmtMia(totalFinancing)} kr.
+                    {fmtMiaKr(totalFinancing)}
                   </p>
                 </div>
 

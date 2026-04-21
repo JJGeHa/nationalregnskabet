@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { fmtMia, fmtPct, perPerson } from "../lib/format";
 import { HomeTreemap } from "./home-client";
 
 const API_URL = process.env.API_URL ?? "http://localhost:8000";
@@ -24,19 +25,6 @@ interface TreemapData {
   total_udgift: number;
   total_finansiering: number;
   children: TreemapNode[];
-}
-
-function fmtMia(v: number): string {
-  const abs = Math.abs(v);
-  if (abs >= 1000) return `${(v / 1000).toFixed(1)} mia.`;
-  return `${v.toFixed(0)} mio.`;
-}
-
-const POPULATION = 6_000_000;
-
-function perPerson(mio: number): string {
-  const kr = (mio * 1_000_000) / POPULATION;
-  return `${Math.round(kr).toLocaleString("da-DK")} kr.`;
 }
 
 export default async function Home() {
@@ -237,7 +225,7 @@ export default async function Home() {
                                 {fmtMia(par.value)}
                               </td>
                               <td className="hidden px-3 py-2 text-right font-mono text-[11px] tabular-nums text-[var(--text-muted)] sm:table-cell">
-                                {pct.toFixed(1)}%
+                                {fmtPct(pct)}
                               </td>
                               <td className="hidden px-3 py-2 sm:table-cell">
                                 <div className="h-[4px] w-full rounded-full bg-[var(--border-subtle)]">

@@ -3,6 +3,7 @@
 import * as Plot from "@observablehq/plot";
 import { useEffect } from "react";
 import { useContainerWidth } from "../../hooks/use-container-width";
+import { fmtDKK, fmtPct, fmtPromille } from "../../lib/format";
 
 interface KommuneRow {
   entity_key: string;
@@ -50,10 +51,10 @@ export function CompareBarChart({
           y: "name_da",
           text: (d: KommuneRow) =>
             unit === "pct"
-              ? `${d.value.toFixed(2)}%`
+              ? fmtPct(d.value, 2)
               : unit === "promille"
-                ? `${d.value.toFixed(1)}\u2030`
-                : `${d.value.toLocaleString("da-DK")} kr.`,
+                ? fmtPromille(d.value, 1)
+                : fmtDKK(d.value),
           dx: 4,
           textAnchor: "start",
           fontSize: 11,

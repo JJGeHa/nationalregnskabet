@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { fmtMiaKr } from "../../../lib/format";
 
 const API_URL = process.env.API_URL ?? "http://localhost:8000";
 
@@ -24,12 +25,6 @@ interface InstitutionDetail {
 interface ParentInfo {
   entity_key: string;
   name_da: string;
-}
-
-function fmtMia(v: number): string {
-  const abs = Math.abs(v);
-  if (abs >= 1000) return `${(v / 1000).toFixed(1)} mia.`;
-  return `${v.toFixed(0)} mio.`;
 }
 
 const TYPE_LABELS: Record<string, string> = {
@@ -152,7 +147,7 @@ export default async function InstitutionPage({
                 Finanslov 2026
               </div>
               <div className="text-lg font-bold text-[var(--accent-expense)]">
-                {fmtMia(detail.budget)} kr.
+                {fmtMiaKr(detail.budget)}
               </div>
             </div>
           )}
@@ -162,7 +157,7 @@ export default async function InstitutionPage({
                 Regnskab 2022
               </div>
               <div className="text-lg font-bold text-[var(--accent-income)]">
-                {fmtMia(detail.budget_actual)} kr.
+                {fmtMiaKr(detail.budget_actual)}
               </div>
             </div>
           )}
@@ -197,7 +192,7 @@ export default async function InstitutionPage({
                   </div>
                   {child.budget !== null && (
                     <div className="text-right font-mono text-[13px] tabular-nums text-[var(--accent-expense)]">
-                      {fmtMia(child.budget)} kr.
+                      {fmtMiaKr(child.budget)}
                     </div>
                   )}
                 </Link>

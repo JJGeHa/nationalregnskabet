@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { fmtMia, fmtMiaKr, fmtPct } from "../../../../lib/format";
 import { ParagrafCharts } from "./charts";
 
 const API_URL = process.env.API_URL ?? "http://localhost:8000";
@@ -26,12 +27,6 @@ const CATEGORY: Record<string, string> = {
   "37": "finansiering",
   "41": "finansiering",
 };
-
-function fmtMia(v: number): string {
-  const abs = Math.abs(v);
-  if (abs >= 1000) return `${(v / 1000).toFixed(1)} mia.`;
-  return `${v.toFixed(0)} mio.`;
-}
 
 export default async function ParagrafPage({
   params,
@@ -144,7 +139,7 @@ export default async function ParagrafPage({
               className="mt-1 text-2xl font-bold tracking-tight"
               style={{ color: accentColor }}
             >
-              {fmtMia(detail.total_finanslov)} kr.
+              {fmtMiaKr(detail.total_finanslov)}
             </div>
           </div>
 
@@ -154,7 +149,7 @@ export default async function ParagrafPage({
                 Regnskab
               </div>
               <div className="mt-1 text-2xl font-bold tracking-tight">
-                {fmtMia(detail.total_regnskab)} kr.
+                {fmtMiaKr(detail.total_regnskab)}
               </div>
               {regnskabDiff !== null && (
                 <div
@@ -259,7 +254,7 @@ export default async function ParagrafPage({
                           </td>
                         )}
                         <td className="hidden px-4 py-2.5 text-right font-mono text-[12px] tabular-nums text-[var(--text-muted)] sm:table-cell">
-                          {pct.toFixed(1)}%
+                          {fmtPct(pct)}
                         </td>
                         <td className="hidden px-4 py-2.5 md:table-cell">
                           <div className="h-[4px] w-full rounded-full bg-[var(--border-subtle)]">

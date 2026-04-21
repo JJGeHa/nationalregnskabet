@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { fmtDKK, fmtNumber, fmtPct, fmtPromille } from "../../../lib/format";
 
 const API_URL = process.env.API_URL ?? "http://localhost:8000";
 
@@ -21,11 +22,10 @@ interface KommuneDetail {
 }
 
 function fmtVal(v: number, unit: string): string {
-  if (unit === "pct") return `${v.toFixed(2)}%`;
-  if (unit === "promille") return `${v.toFixed(1)}\u2030`;
-  if (unit === "dkk_per_capita")
-    return `${Math.round(v).toLocaleString("da-DK")} kr.`;
-  return v.toLocaleString("da-DK", { maximumFractionDigits: 1 });
+  if (unit === "pct") return fmtPct(v, 2);
+  if (unit === "promille") return fmtPromille(v, 1);
+  if (unit === "dkk_per_capita") return fmtDKK(v);
+  return fmtNumber(v, 1);
 }
 
 export default async function KommuneDetailPage({
@@ -180,7 +180,7 @@ function MetricCard({ metric }: { metric: MetricValue }) {
               }
             >
               ({diffPct > 0 ? "+" : ""}
-              {diffPct.toFixed(1)}%)
+              {fmtPct(diffPct, 1)})
             </span>
           )}
         </div>

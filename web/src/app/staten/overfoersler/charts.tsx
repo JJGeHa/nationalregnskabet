@@ -3,6 +3,7 @@
 import * as Plot from "@observablehq/plot";
 import { useEffect } from "react";
 import { useContainerWidth } from "../../../hooks/use-container-width";
+import { fmtAxisMia } from "../../../lib/format";
 
 interface TransferPoint {
   year: number;
@@ -51,11 +52,11 @@ export function TransferCharts({ points }: { points: TransferPoint[] }) {
       width: Math.max(width - 16, 300),
       height: 360,
       marginRight: 20,
-      x: { label: null, tickFormat: "d" },
+      x: { label: "Aar", tickFormat: "d" },
       y: {
-        label: null,
+        label: "mia. kr.",
         grid: true,
-        tickFormat: (d: number) => `${(d / 1000).toFixed(0)} mia.`,
+        tickFormat: fmtAxisMia,
       },
       color: {
         domain: ["Bloktilskud", "Sociale pensioner mv.", "Oevrige tilskud"],

@@ -1,6 +1,7 @@
 "use client";
 
 import { DonutChart, DonutLegend } from "../../components/donut-chart";
+import { fmtMiaKr, fmtPct } from "../../lib/format";
 
 interface Category {
   label: string;
@@ -12,12 +13,6 @@ interface TransferItem {
   hovedomraade_nr: string;
   label: string;
   finanslov: number;
-}
-
-function fmtMia(v: number): string {
-  const abs = Math.abs(v);
-  if (abs >= 1000) return `${(v / 1000).toFixed(1)} mia.`;
-  return `${v.toFixed(0)} mio.`;
 }
 
 export function StateCharts({
@@ -65,15 +60,13 @@ export function StateCharts({
             Overfoersler til kommuner og regioner
           </h2>
           <p className="mt-1 text-[13px] text-[var(--text-muted)]">
-            I alt {fmtMia(transferTotal)} kr. overfoeres fra staten til kommuner
+            I alt {fmtMiaKr(transferTotal)} overfoeres fra staten til kommuner
             og regioner.
           </p>
           <div className="mt-5 space-y-3">
             {transfers.map((t) => {
               const pct =
-                transferTotal > 0
-                  ? ((t.finanslov / transferTotal) * 100).toFixed(1)
-                  : "0";
+                transferTotal > 0 ? (t.finanslov / transferTotal) * 100 : 0;
               return (
                 <div
                   key={`${t.paragraf_nr}-${t.hovedomraade_nr}`}
@@ -88,10 +81,10 @@ export function StateCharts({
                     </div>
                     <div className="text-right">
                       <div className="font-mono text-lg font-semibold tabular-nums text-[var(--accent-income)]">
-                        {fmtMia(t.finanslov)} kr.
+                        {fmtMiaKr(t.finanslov)}
                       </div>
                       <div className="text-[12px] text-[var(--text-muted)]">
-                        {pct}%
+                        {fmtPct(pct)}
                       </div>
                     </div>
                   </div>

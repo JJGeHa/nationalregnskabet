@@ -3,18 +3,13 @@
 import * as Plot from "@observablehq/plot";
 import { useEffect } from "react";
 import { useContainerWidth } from "../../../../hooks/use-container-width";
+import { fmtAxisMia, fmtMia } from "../../../../lib/format";
 
 interface HovedområdeRow {
   hovedomraade_nr: string;
   name: string;
   finanslov: number;
   regnskab: number | null;
-}
-
-function fmtMia(v: number): string {
-  const abs = Math.abs(v);
-  if (abs >= 1000) return `${(v / 1000).toFixed(1)} mia.`;
-  return `${v.toFixed(0)} mio.`;
 }
 
 export function ParagrafCharts({ data }: { data: HovedområdeRow[] }) {
@@ -43,10 +38,9 @@ export function ParagrafCharts({ data }: { data: HovedområdeRow[] }) {
       marginLeft: leftMargin,
       marginRight: 70,
       x: {
-        label: null,
+        label: "mio. kr.",
         grid: true,
-        tickFormat: (d: number) =>
-          d >= 1000 ? `${(d / 1000).toFixed(0)} mia.` : `${d.toFixed(0)}`,
+        tickFormat: fmtAxisMia,
       },
       y: { label: null },
       marks: [

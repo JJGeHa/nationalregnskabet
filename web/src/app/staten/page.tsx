@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { fmtMiaKr } from "../../lib/format";
 import { StateCharts } from "./charts";
 
 const API_URL = process.env.API_URL ?? "http://localhost:8000";
@@ -31,12 +32,6 @@ interface TransferOverview {
   year: number;
   total: number;
   items: TransferItem[];
-}
-
-function fmtMia(v: number): string {
-  const abs = Math.abs(v);
-  if (abs >= 1000) return `${(v / 1000).toFixed(1)} mia.`;
-  return `${v.toFixed(0)} mio.`;
 }
 
 export default async function StatenPage() {
@@ -91,7 +86,7 @@ export default async function StatenPage() {
                 Indtaegter
               </div>
               <div className="mt-2 text-2xl font-bold tracking-tight text-emerald-800">
-                {fmtMia(treemap.total_indtaegt)} kr.
+                {fmtMiaKr(treemap.total_indtaegt)}
               </div>
               <p className="mt-1 text-[12px] text-[var(--text-muted)]">
                 Skatter, afgifter, renter
@@ -102,7 +97,7 @@ export default async function StatenPage() {
                 Udgifter
               </div>
               <div className="mt-2 text-2xl font-bold tracking-tight text-[var(--accent-expense)]">
-                {fmtMia(treemap.total_udgift)} kr.
+                {fmtMiaKr(treemap.total_udgift)}
               </div>
               <p className="mt-1 text-[12px] text-[var(--text-muted)]">
                 Ministerier og offentlig drift
@@ -113,7 +108,7 @@ export default async function StatenPage() {
                 Finansiering
               </div>
               <div className="mt-2 text-2xl font-bold tracking-tight">
-                {fmtMia(treemap.total_finansiering)} kr.
+                {fmtMiaKr(treemap.total_finansiering)}
               </div>
               <p className="mt-1 text-[12px] text-[var(--text-muted)]">
                 Gaeld, renter, genudlaan
@@ -124,7 +119,7 @@ export default async function StatenPage() {
                 Til kommuner
               </div>
               <div className="mt-2 text-2xl font-bold tracking-tight text-amber-800">
-                {transfers ? `${fmtMia(transfers.total)} kr.` : "—"}
+                {transfers ? fmtMiaKr(transfers.total) : "—"}
               </div>
               <p className="mt-1 text-[12px] text-[var(--text-muted)]">
                 Bloktilskud og overfoersler

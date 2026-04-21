@@ -3,6 +3,7 @@
 import * as Plot from "@observablehq/plot";
 import { useEffect, useRef, useState } from "react";
 import { useContainerWidth } from "../../hooks/use-container-width";
+import { fmtAxisKr, fmtDKK, fmtPct, fmtPromille } from "../../lib/format";
 
 const API_URL = "http://localhost:8000";
 
@@ -43,9 +44,9 @@ interface KommuneCompare {
 }
 
 function fmtValue(v: number, unit: string): string {
-  if (unit === "pct") return `${v.toFixed(2)}%`;
-  if (unit === "promille") return `${v.toFixed(1)}\u2030`;
-  return `${Math.round(v).toLocaleString("da-DK")} kr.`;
+  if (unit === "pct") return fmtPct(v, 2);
+  if (unit === "promille") return fmtPromille(v, 1);
+  return fmtDKK(v);
 }
 
 export function KommuneCompareSection() {
@@ -91,11 +92,10 @@ export function KommuneCompareSection() {
         grid: true,
         tickFormat:
           data.unit === "pct"
-            ? (d: number) => `${d}%`
+            ? (d: number) => fmtPct(d, 0)
             : data.unit === "promille"
-              ? (d: number) => `${d}\u2030`
-              : (d: number) =>
-                  d >= 1000 ? `${(d / 1000).toFixed(0)}k` : `${d}`,
+              ? (d: number) => fmtPromille(d, 0)
+              : (d: number) => fmtAxisKr(d),
       },
       y: { label: null },
       color: { scheme: "blues" },

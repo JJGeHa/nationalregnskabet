@@ -3,6 +3,7 @@
 import * as Plot from "@observablehq/plot";
 import { useEffect } from "react";
 import { useContainerWidth } from "../../../hooks/use-container-width";
+import { fmtAxisMia, fmtMia } from "../../../lib/format";
 
 interface ParagrafRow {
   entity_key: string;
@@ -35,12 +36,9 @@ export function BudgetBarChart({ data }: { data: ParagrafRow[] }) {
       marginLeft: leftMargin,
       marginRight: 70,
       x: {
-        label: null,
+        label: "mio. kr.",
         grid: true,
-        tickFormat: (d: number) =>
-          d >= 1000 || d <= -1000
-            ? `${(d / 1000).toFixed(0)} mia.`
-            : `${d.toFixed(0)}`,
+        tickFormat: fmtAxisMia,
       },
       y: { label: null },
       marks: [
@@ -57,10 +55,7 @@ export function BudgetBarChart({ data }: { data: ParagrafRow[] }) {
           {
             x: "value",
             y: "name_da",
-            text: (d: ParagrafRow) =>
-              d.value >= 1000
-                ? `${(d.value / 1000).toFixed(1)} mia.`
-                : `${d.value.toFixed(0)} mio.`,
+            text: (d: ParagrafRow) => fmtMia(d.value),
             dx: 5,
             textAnchor: "start",
             fontSize: 11,
@@ -72,10 +67,7 @@ export function BudgetBarChart({ data }: { data: ParagrafRow[] }) {
           {
             x: "value",
             y: "name_da",
-            text: (d: ParagrafRow) =>
-              d.value <= -1000
-                ? `${(d.value / 1000).toFixed(1)} mia.`
-                : `${d.value.toFixed(0)} mio.`,
+            text: (d: ParagrafRow) => fmtMia(d.value),
             dx: -5,
             textAnchor: "end",
             fontSize: 11,
@@ -140,11 +132,11 @@ export function BudgetTimeseriesChart({
       width: Math.max(width - 16, 300),
       height: 360,
       marginRight: 20,
-      x: { label: null, tickFormat: "d" },
+      x: { label: "Aar", tickFormat: "d" },
       y: {
-        label: null,
+        label: "mia. kr.",
         grid: true,
-        tickFormat: (d: number) => `${(d / 1000).toFixed(0)} mia.`,
+        tickFormat: fmtAxisMia,
       },
       color: {
         domain: ["Finanslov (bevilling)", "Statsregnskab (faktisk)"],

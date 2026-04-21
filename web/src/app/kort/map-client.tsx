@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { fmtDKK, fmtPct } from "../../lib/format";
 
 const API_URL = "http://localhost:8000";
 
@@ -24,9 +25,14 @@ export function KommuneMap() {
   const router = useRouter();
   const mapRef = useRef<HTMLDivElement>(null);
   const [metric, setMetric] = useState(METRICS[0].code);
+  const metricRef = useRef(metric);
   const [mapData, setMapData] = useState<MapData | null>(null);
   const [tooltip, setTooltip] = useState<string | null>(null);
   const [mapLoaded, setMapLoaded] = useState(false);
+
+  useEffect(() => {
+    metricRef.current = metric;
+  }, [metric]);
 
   // Fetch map data when metric changes
   useEffect(() => {
@@ -107,11 +113,15 @@ export function KommuneMap() {
           const props = e.features[0].properties;
           const name = props?.navn || "Unknown";
           const val = props?.dataValue;
-          setTooltip(
-            val !== undefined && val !== null
-              ? `${name}: ${Number(val).toLocaleString("da-DK")}`
-              : name,
-          );
+          if (val !== undefined && val !== null) {
+            const n = Number(val);
+            const active = metricRef.current;
+            const formatted =
+              active === "kommune_tax_rate" ? fmtPct(n, 2) : fmtDKK(n);
+            setTooltip(`${name}: ${formatted}`);
+          } else {
+            setTooltip(name);
+          }
           map.getCanvas().style.cursor = "pointer";
         }
       });

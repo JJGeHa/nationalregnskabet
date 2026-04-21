@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { fmtMiaKr, fmtPct } from "../../../lib/format";
 import { TransferCharts } from "./charts";
 
 const API_URL = process.env.API_URL ?? "http://localhost:8000";
@@ -27,12 +28,6 @@ interface TransferTimeseriesPoint {
 
 interface TransferTimeseries {
   points: TransferTimeseriesPoint[];
-}
-
-function fmtMia(v: number): string {
-  const abs = Math.abs(v);
-  if (abs >= 1000) return `${(v / 1000).toFixed(1)} mia.`;
-  return `${v.toFixed(0)} mio.`;
 }
 
 interface BudgetOverview {
@@ -65,7 +60,7 @@ export default async function OverfoerslerPage() {
   const budgetTotal = budget?.total ?? 0;
   const transferPct =
     budgetTotal > 0 && overview
-      ? ((overview.total / budgetTotal) * 100).toFixed(0)
+      ? fmtPct((overview.total / budgetTotal) * 100, 0)
       : null;
 
   return (
@@ -105,11 +100,11 @@ export default async function OverfoerslerPage() {
                 Samlet overfoersel — Finanslov {overview.year}
               </div>
               <div className="mt-2 text-3xl font-bold tracking-tight text-[var(--accent-income)]">
-                {fmtMia(overview.total)} kr.
+                {fmtMiaKr(overview.total)}
               </div>
               {transferPct && (
                 <p className="mt-2 text-[13px] text-[var(--text-muted)]">
-                  Det svarer til ca. {transferPct}% af det samlede statsbudget.
+                  Det svarer til ca. {transferPct} af det samlede statsbudget.
                 </p>
               )}
             </div>
@@ -119,8 +114,8 @@ export default async function OverfoerslerPage() {
               {overview.items.map((item) => {
                 const pct =
                   overview.total > 0
-                    ? ((item.finanslov / overview.total) * 100).toFixed(1)
-                    : "0";
+                    ? (item.finanslov / overview.total) * 100
+                    : 0;
                 return (
                   <div
                     key={`${item.paragraf_nr}-${item.hovedomraade_nr}`}
@@ -137,10 +132,10 @@ export default async function OverfoerslerPage() {
                       </div>
                       <div className="text-right">
                         <div className="font-mono text-lg font-bold tabular-nums text-[var(--accent-income)]">
-                          {fmtMia(item.finanslov)} kr.
+                          {fmtMiaKr(item.finanslov)}
                         </div>
                         <div className="text-[12px] text-[var(--text-muted)]">
-                          {pct}% af total
+                          {fmtPct(pct)} af total
                         </div>
                       </div>
                     </div>
