@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ErrorBanner } from "../components/error-banner";
 import { fmtMia, fmtPct, perPerson } from "../lib/format";
 import { HomeTreemap } from "./home-client";
 
@@ -80,9 +81,12 @@ export default async function Home() {
         </div>
 
         {error && (
-          <p className="mb-8 rounded-lg border border-red-200 bg-red-50/80 px-4 py-3 text-[13px] text-red-700">
-            {error}
-          </p>
+          <div className="mb-8">
+            <ErrorBanner
+              message={error}
+              hint="Kontroller at API'et paa localhost:8000 koerer."
+            />
+          </div>
         )}
 
         {treemap && (

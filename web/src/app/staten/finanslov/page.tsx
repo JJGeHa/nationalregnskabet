@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ErrorBanner } from "../../../components/error-banner";
 import { fmtMia, fmtMiaKr, fmtPct } from "../../../lib/format";
 import { BudgetBarChart, BudgetTimeseriesChart } from "./charts";
 import { FinanslovTreemap } from "./treemap-client";
@@ -128,9 +129,12 @@ export default async function FinanslovPage() {
         </p>
 
         {error ? (
-          <p className="mt-8 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-            {error}
-          </p>
+          <div className="mt-8">
+            <ErrorBanner
+              message={error}
+              hint="Kontroller at API'et paa localhost:8000 koerer."
+            />
+          </div>
         ) : (
           <>
             {/* ─── SUMMARY CARDS ─── */}

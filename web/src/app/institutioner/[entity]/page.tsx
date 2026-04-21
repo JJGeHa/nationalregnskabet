@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ErrorBanner } from "../../../components/error-banner";
 import { fmtMiaKr } from "../../../lib/format";
 
 const API_URL = process.env.API_URL ?? "http://localhost:8000";
@@ -79,9 +80,16 @@ export default async function InstitutionPage({
     return (
       <div className="flex flex-1 flex-col items-center px-4 py-12">
         <main className="w-full max-w-5xl">
-          <p className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-            {error ?? "Ikke fundet"}
-          </p>
+          <nav className="mb-6 text-[13px] text-[var(--text-muted)]">
+            <Link href="/staten" className="hover:text-[var(--foreground)]">
+              &larr; Tilbage til Staten
+            </Link>
+          </nav>
+          <ErrorBanner
+            title="Institution ikke fundet"
+            message={error ?? "Ikke fundet"}
+            hint={`Id '${entity}' matcher ingen institution i 2026.`}
+          />
         </main>
       </div>
     );

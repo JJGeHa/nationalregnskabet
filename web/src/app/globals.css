@@ -122,6 +122,29 @@ body::before {
   animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+/* ── Skeleton shimmer ── */
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--border-subtle) 0%,
+    var(--border) 50%,
+    var(--border-subtle) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+  border-radius: 0.5rem;
+}
+
 /* Staggered delays */
 .delay-1 {
   animation-delay: 0.08s;

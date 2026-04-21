@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ErrorBanner } from "../../components/error-banner";
 import { fmtMiaKr } from "../../lib/format";
 import { StateCharts } from "./charts";
 
@@ -73,9 +74,12 @@ export default async function StatenPage() {
         </p>
 
         {error && (
-          <p className="mt-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-            {error}
-          </p>
+          <div className="mt-6">
+            <ErrorBanner
+              message={error}
+              hint="Kontroller at API'et paa localhost:8000 koerer."
+            />
+          </div>
         )}
 
         {/* Key numbers */}
